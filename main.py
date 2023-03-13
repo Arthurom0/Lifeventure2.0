@@ -32,7 +32,7 @@ height_max = 1080
 taille = 2
 #Musique
 
-DO_PLAY_SOUND = False
+DO_PLAY_SOUND = True
 if DO_PLAY_SOUND:
     pygame.mixer.music.load(MUSIQUE_FOND)
     pygame.mixer.music.set_volume(0.1)
