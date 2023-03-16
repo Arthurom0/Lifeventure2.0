@@ -64,6 +64,7 @@ entities = [back, player, cactus]
 # placement de la caméra qu'on peut déplacer indépendamenr du joueur
 camera_offset = [0, 0]
 
+#Change la map/ place la map
 def set_nd_map():
     global current_map_id
     camera_offset[0] = 0

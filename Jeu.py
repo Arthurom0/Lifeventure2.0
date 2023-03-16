@@ -3,3 +3,4 @@ class Jeu:
     def __init__(self):
         #générer le perso
         self.pressed = {}
+
