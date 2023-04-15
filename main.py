@@ -156,6 +156,3 @@ while running:
             player.min_y = 900
 
    
-        
-   dnjje
-
