@@ -114,7 +114,9 @@ while running:
 
     if game.pressed.get(pygame.K_UP): 
         player.jump()
-
+    if game.pressed.get(pygame.K_ESCAPE):
+            pygame.quit()
+        
 
     # on déplace la caméra sur le joueur
     camera_offset[0] = -(player.rect.x - width_max//2)
@@ -153,9 +155,7 @@ while running:
             back.setImage(2)
             player.min_y = 900
 
-    if game.pressed.get(pygame.K_ESCAPE):
-        pygame.quit()
-    
-        
    
+        
+   dnjje
 
