@@ -49,9 +49,8 @@ animation = {
 
 #charger le personnage
 player = Personnage(ecran)
-cactus = Mechant(ecran, (750, 666))
+cactus = Mechant(ecran)
 back = Background(ecran)
-
 #charger le jeu
 game = Jeu()
 
@@ -129,7 +128,8 @@ while running:
     # afficher les coordonnées (x;y du joueur)
     text_surface = my_font.render(f"x={player.rect.x}, y={player.rect.y}", False, (0, 0, 0))
     ecran.blit(text_surface, (0, 0))
-    
+    """text_surface = my_font.render(f"x={Mechant.rect.x}, y={Mechant.rect.y}", False, (0, 0, 0))
+    ecran.blit(text_surface, (0, 0))"""
     # si la map est 1 et que le joueur est a droite
     if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
         text_surface = my_font.render(f"Press down to enter", False, (0, 0, 0))
@@ -140,6 +140,10 @@ while running:
             current_map_id = 1
             player.rect.x = 0
             player.rect.y = 900
+            cactus.rect.x = 400
+            cactus.rect.y = 900
+            #ENNEMI_CACTUS.rect.x = 0
+            #ENNEMI_CACTUS.rect.y = 900
             back.setImage(1)
             player.min_y = 900
 
@@ -155,4 +159,4 @@ while running:
             back.setImage(2)
             player.min_y = 900
 
-   
+
