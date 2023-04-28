@@ -23,7 +23,6 @@ Y_velocity = JUMP_HEIGHT
 pygame.display.set_caption("Lifenture")
 ecran = pygame.display.set_mode((width, height))
 my_font = pygame.font.SysFont('Comic Sans MS', 30)
-
 x_fond = 0
 y_fond = 0
 width_max = 1920
@@ -54,6 +53,9 @@ back = Background(ecran)
 #charger le jeu
 game = Jeu()
 
+
+
+
 # qui permet de savoir sur quelle map on est
 current_map_id = 0
 
@@ -74,7 +76,6 @@ def set_nd_map():
     back.setImage(1)
     player.min_y = 900
 
-    
 
 # tant que le jeu est en marche...
 running = True
@@ -98,7 +99,6 @@ while running:
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
- 
 
     for entity in entities:
         entity.update()
@@ -112,6 +112,8 @@ while running:
         player.move_left([back.image.get_width(), back.image.get_height()])
 
     if game.pressed.get(pygame.K_UP): 
+        player.jump()
+    if game.pressed.get(pygame.K_SPACE): 
         player.jump()
     if game.pressed.get(pygame.K_ESCAPE):
             pygame.quit()
@@ -159,4 +161,23 @@ while running:
             back.setImage(2)
             player.min_y = 900
 
+    a = player.rect.x
+    b = player.rect.y
+    c = cactus.rect.x
+    d = cactus.rect.y
+    rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
+    rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
+    
+    print(a, b, c, d)
+    
+    if c - 32 <= a + 32 <= c + 32 or c + 32 >= a - 32 >= c or c+32 > a >c-32 :
+        if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
+            pygame.draw.rect(ecran, (255,10, 10), player.hitbox,1)  
+            pygame.draw.rect(ecran, (255,255, 255), cactus.hitbox,1)
+            print(rect1, rect2)
+            
+    
+    
+        
 
+    

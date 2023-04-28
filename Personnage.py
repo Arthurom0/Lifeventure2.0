@@ -9,10 +9,10 @@ class Personnage(pygame.sprite.Sprite):
         super().__init__()
         self.ecran = ecran
         self.tick = pygame.time.Clock().tick()
-        #self.health = 100
-        #self.max_health = 100
-        #self.attack = 10
-        
+        self.health = 100
+        self.max_health = 100
+        self.attack = 10
+
         self.velocity_x = 13
         self.velocity_y = 5
         self.vitesse_x = 0
@@ -25,6 +25,10 @@ class Personnage(pygame.sprite.Sprite):
         self.on_ground = True
         self.rect.x = 800
         self.rect.y = 666
+        
+        self.hitbox = (self.rect.x, self.rect.y, 33, 33)
+       
+        
         self.current_image = 0
         self.animation = True
         self.images = {
@@ -81,5 +85,5 @@ class Personnage(pygame.sprite.Sprite):
 
         #print(self.rect.x, self.rect.y)
 
+
     
-#helloo 
