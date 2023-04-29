@@ -100,7 +100,8 @@ while running:
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
-
+    if vies == 0 :
+        pygame.quit()
     for entity in entities:
         entity.update()
 
@@ -174,7 +175,7 @@ while running:
     
     print(a, b, c, d)
     
-    if c - 32 <= a + 32 <= c + 32 or c + 32 >= a - 32 >= c or c+32 > a >c-32 :
+    if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
         if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
             pygame.draw.rect(ecran, (255,10, 10), player.hitbox,1)  
             pygame.draw.rect(ecran, (255,255, 255), cactus.hitbox,1)
@@ -191,18 +192,21 @@ while running:
                 cactus.rect.y = 666
                 vies == 2
             elif vies == 1:
-                camera_offset[0] = 0
-                camera_offset[1] = 0
                 current_map_id = 0
                 player.rect.x = 0
                 player.rect.y = 666
                 back.setImage(0)
                 player.min_y = 666
+                player.velocity_x = 13
+                player.velocity_y = 5
+                player.vitesse_x = 0
+                player.vitesse_y = 0
+                player.min_y = 666
                 cactus.rect.x = 1500
                 cactus.rect.y = 666
                 vies == 1
-            elif vies == 0:
-                pygame.quit()
+
+        
                 
 
                 
