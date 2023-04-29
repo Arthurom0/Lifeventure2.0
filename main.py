@@ -22,15 +22,15 @@ Y_velocity = JUMP_HEIGHT
 #fenêtre du jeu
 pygame.display.set_caption("Lifenture")
 ecran = pygame.display.set_mode((width, height))
-my_font = pygame.font.SysFont('Comic Sans MS', 30)
+my_font = pygame.font.SysFont('Comic Sans MS', 30, True)
 x_fond = 0
 y_fond = 0
 width_max = 1920
 height_max = 1080
 #taille
 taille = 2
-#Musique
 
+#Musique
 DO_PLAY_SOUND = True
 if DO_PLAY_SOUND:
     pygame.mixer.music.load(MUSIQUE_FOND)
@@ -53,8 +53,8 @@ back = Background(ecran)
 #charger le jeu
 game = Jeu()
 
-
-
+#vie du perso
+vies = 3
 
 # qui permet de savoir sur quelle map on est
 current_map_id = 0
@@ -86,6 +86,7 @@ while running:
 
     # mettre à jour l'écran
     pygame.display.flip()
+
 
     #fermeture de la fenêtre
     for event in pygame.event.get():
@@ -127,6 +128,10 @@ while running:
     for entity in entities:
         entity.display(camera_offset)  
   
+    # afficher les vies
+    text = my_font.render('Vies: ' + str(vies), False, (0, 0, 0))
+    ecran.blit(text, (1300, 10))
+
     # afficher les coordonnées (x;y du joueur)
     text_surface = my_font.render(f"x={player.rect.x}, y={player.rect.y}", False, (0, 0, 0))
     ecran.blit(text_surface, (0, 0))
@@ -134,32 +139,31 @@ while running:
     ecran.blit(text_surface, (0, 0))"""
     # si la map est 1 et que le joueur est a droite
     if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
-        text_surface = my_font.render(f"Press down to enter", False, (0, 0, 0))
+        text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
         ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
         if game.pressed.get(pygame.K_RETURN):
             camera_offset[0] = 0
             camera_offset[1] = 0
             current_map_id = 1
             player.rect.x = 0
-            player.rect.y = 900
-            cactus.rect.x = 400
-            cactus.rect.y = 900
-            #ENNEMI_CACTUS.rect.x = 0
-            #ENNEMI_CACTUS.rect.y = 900
+            player.rect.y = 750
+            cactus.rect.x = 1110
+            cactus.rect.y = 750
             back.setImage(1)
-            player.min_y = 900
+            player.min_y = 750
 
     elif current_map_id == 1 and 3050 <= player.rect.x <= 3250 :
-        text_surface = my_font.render(f"Press down to enter", False, (0, 0, 0))
+        text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
         ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
         if game.pressed.get(pygame.K_RETURN):
             camera_offset[0] = 0
             camera_offset[1] = 0
             current_map_id = 2
             player.rect.x = 0
-            player.rect.y = 900
+            player.rect.y = 750
             back.setImage(2)
-            player.min_y = 900
+            player.min_y = 750
+           
 
     a = player.rect.x
     b = player.rect.y
@@ -174,9 +178,38 @@ while running:
         if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
             pygame.draw.rect(ecran, (255,10, 10), player.hitbox,1)  
             pygame.draw.rect(ecran, (255,255, 255), cactus.hitbox,1)
-            print(rect1, rect2)
+            print(rect1, rect2) 
+            vies -= 1 
+            if vies == 2:
+   
+                current_map_id = 0
+                player.rect.x = 0
+                player.rect.y = 666
+                back.setImage(0)
+                player.min_y = 666
+                cactus.rect.x = 1500
+                cactus.rect.y = 666
+                vies == 2
+            elif vies == 1:
+                camera_offset[0] = 0
+                camera_offset[1] = 0
+                current_map_id = 0
+                player.rect.x = 0
+                player.rect.y = 666
+                back.setImage(0)
+                player.min_y = 666
+                cactus.rect.x = 1500
+                cactus.rect.y = 666
+                vies == 1
+            elif vies == 0:
+                pygame.quit()
+                
+
+                
+                
             
-    
+                
+            
     
         
 

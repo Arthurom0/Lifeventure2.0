@@ -26,8 +26,7 @@ class Personnage(pygame.sprite.Sprite):
         self.rect.x = 800
         self.rect.y = 666
         
-        self.hitbox = (self.rect.x, self.rect.y, 33, 33)
-       
+
         
         self.current_image = 0
         self.animation = True
@@ -84,6 +83,8 @@ class Personnage(pygame.sprite.Sprite):
             self.rect.y = self.min_y
 
         #print(self.rect.x, self.rect.y)
-
+    def life(self) :
+        print(self.health)
+        
 
     
