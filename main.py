@@ -1,6 +1,5 @@
 #importer le module pygame
 from playsound import playsound 
-import time
 import pygame
 from os import listdir
 from constants import *
@@ -8,12 +7,12 @@ from utils import load_animation_images
 from Personnage import Personnage
 from Background import Background
 from Mechant import Mechant
-from Jeu import Jeu
+from Jeu import * 
 
 pygame.init()
 pygame.font.init() 
 
-jumping = False
+jumping = True
 Y_gravity = 1
 JUMP_HEIGHT = 20
 Y_velocity = JUMP_HEIGHT 
@@ -31,12 +30,12 @@ height_max = 1080
 taille = 2
 
 #Musique
-DO_PLAY_SOUND = True
+DO_PLAY_SOUND = False
 if DO_PLAY_SOUND:
     pygame.mixer.music.load(MUSIQUE_FOND)
     pygame.mixer.music.set_volume(0.1)
     pygame.mixer.music.play()
-    
+
 #Temps
 clock = pygame.time.Clock()
 
@@ -93,24 +92,26 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-            print("Fermeture du jeu")
 
         # defini si la touche est appuyée ou non (a faire avant de detecter les touches)
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
+
+    
     if vies == 0 :
         pygame.quit()
+    
+    
     for entity in entities:
         entity.update()
 
     # déplacement du personnage et mechant
     player.idle()  
-    
     if game.pressed.get(pygame.K_RIGHT):
         player.move_right([back.image.get_width(), back.image.get_height()])
-    elif game.pressed.get(pygame.K_LEFT):
+    if game.pressed.get(pygame.K_LEFT):
         player.move_left([back.image.get_width(), back.image.get_height()])
 
     if game.pressed.get(pygame.K_UP): 
@@ -130,14 +131,16 @@ while running:
         entity.display(camera_offset)  
   
     # afficher les vies
-    text = my_font.render('Vies: ' + str(vies), False, (0, 0, 0))
-    ecran.blit(text, (1300, 10))
+    """text = my_font.render('Vies: ' + str(vies), False, (0, 0, 0))
+    ecran.blit(text, (1300, 10))"""
+    heart_image = pygame.image.load(HEALTH)
+    def heart_imaging(x, y) :
+        ecran.blit(heart_image, (x, y))
+    
 
-    # afficher les coordonnées (x;y du joueur)
-    text_surface = my_font.render(f"x={player.rect.x}, y={player.rect.y}", False, (0, 0, 0))
-    ecran.blit(text_surface, (0, 0))
-    """text_surface = my_font.render(f"x={Mechant.rect.x}, y={Mechant.rect.y}", False, (0, 0, 0))
-    ecran.blit(text_surface, (0, 0))"""
+
+
+
     # si la map est 1 et que le joueur est a droite
     if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
         text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
@@ -152,7 +155,7 @@ while running:
             cactus.rect.y = 750
             back.setImage(1)
             player.min_y = 750
-
+    #entrer dans la pyramide
     elif current_map_id == 1 and 3050 <= player.rect.x <= 3250 :
         text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
         ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
@@ -165,7 +168,7 @@ while running:
             back.setImage(2)
             player.min_y = 750
            
-
+    #data box to follow coonditions to take out hearts
     a = player.rect.x
     b = player.rect.y
     c = cactus.rect.x
@@ -182,7 +185,7 @@ while running:
             print(rect1, rect2) 
             vies -= 1 
             if vies == 2:
-   
+                heart_imaging(1300, 10 )
                 current_map_id = 0
                 player.rect.x = 0
                 player.rect.y = 666
@@ -205,10 +208,13 @@ while running:
                 cactus.rect.x = 1500
                 cactus.rect.y = 666
                 vies == 1
-
-        
-                
-
+    #animation des cœurs :
+    if vies == 3 :
+        heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
+    elif vies == 2 :
+        heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35)
+    else :
+        heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
                 
                 
             

@@ -86,5 +86,3 @@ class Personnage(pygame.sprite.Sprite):
     def life(self) :
         print(self.health)
         
-
-    
