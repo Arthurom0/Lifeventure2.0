@@ -25,4 +25,5 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
         self.ecran.blit(get_back, (0, 0))
 
     def update(self):
+
         next

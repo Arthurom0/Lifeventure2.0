@@ -1,6 +1,5 @@
-#importer le module pygame
 from playsound import playsound 
-import pygame
+import pygame, sys
 from os import listdir
 from constants import *
 from utils import load_animation_images
@@ -8,219 +7,71 @@ from Personnage import Personnage
 from Background import Background
 from Mechant import Mechant
 from Jeu import * 
+import time
 
 pygame.init()
 pygame.font.init() 
+ 
 
-jumping = True
-Y_gravity = 1
-JUMP_HEIGHT = 20
-Y_velocity = JUMP_HEIGHT 
+screen = pygame.display.set_mode((1920,1080))
+pygame.display.set_caption("menu")
 
-
-#fenêtre du jeu
-pygame.display.set_caption("Lifenture")
-ecran = pygame.display.set_mode((width, height))
-my_font = pygame.font.SysFont('Comic Sans MS', 30, True)
-x_fond = 0
-y_fond = 0
-width_max = 1920
-height_max = 1080
-#taille
-taille = 2
-
-#Musique
-DO_PLAY_SOUND = False
-if DO_PLAY_SOUND:
-    pygame.mixer.music.load(MUSIQUE_FOND)
-    pygame.mixer.music.set_volume(0.1)
-    pygame.mixer.music.play()
-
-#Temps
+Back = pygame.image.load(MENU)
+Back = pygame.transform.scale(Back, (1920, 1080))
 clock = pygame.time.Clock()
 
-#Dictionnaire
-animation = {
-    "marche" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeune", (32, 32)),
-    "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
-} 
 
-#charger le personnage
-player = Personnage(ecran)
-cactus = Mechant(ecran)
-back = Background(ecran)
-#charger le jeu
+pygame.draw.rect(screen, (255,255, 255), pygame.Rect(371, 332, 1095, 250))
 game = Jeu()
 
-#vie du perso
-vies = 3
-
-# qui permet de savoir sur quelle map on est
-current_map_id = 0
-
-# liste qui va conteir les truc a afficher (fond, mobs, joueur, items...)
-entities = [back, player, cactus]
-
-# placement de la caméra qu'on peut déplacer indépendamenr du joueur
-camera_offset = [0, 0]
-
-#Change la map/ place la map
-def set_nd_map():
-    global current_map_id
-    camera_offset[0] = 0
-    camera_offset[1] = 0
-    current_map_id = 1
-    player.rect.x = 0
-    player.rect.y = 900
-    back.setImage(1)
-    player.min_y = 900
+def main_menu() :
+    pygame.display.set_caption("MENU")
+    BG = pygame.display.set_mode((width, height))
+    #A = pygame.Rect(375, 330,1100, 240)
+    #B = pygame.Rect((600, 725), (265, 100))
+    menu = True
 
 
-# tant que le jeu est en marche...
-running = True
-while running:
+    while menu == True  :#boucle principale
+        screen.blit(Back, (0,0))
+        Position_souris = pygame.mouse.get_pos()
+        delta_t = clock.tick(60)
+        font = pygame.font.Font('freesansbold.ttf', 32)
 
-    #delta temps
-    delta_t = clock.tick(60)
+        text = font.render(f'{Position_souris}', True, (255, 125, 0))
+        textRect = text.get_rect()
+        textRect.center = (100, 100)
+        screen.blit(text, textRect)
+        #pygame.draw.rect(screen, ( 123,123,123 ),A,  width=10)
+        #pygame.draw.rect(screen, ( 123,123,123 ),B,  width=10)
+        
+        for event in pygame.event.get():#quit
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit()
+            if event.type == pygame.MOUSEBUTTONDOWN: 
+                print(Position_souris)
+                if 600 < Position_souris[0] < 865 and  725 < Position_souris[1] <  825:
+                    return 1
+                if 951 < Position_souris[0] < 1204 and  725 < Position_souris[1] <  825:
+                    pygame.quit()
+                    sys.exit()
+        
+        
+        
+        
+        pygame.display.flip()
 
-    # mettre à jour l'écran
-    pygame.display.flip()
-
-
-    #fermeture de la fenêtre
-    for event in pygame.event.get():
+for i in range (0): 
+    main_menu()
+if main_menu() == 1 :
+    print("hi")
+    #PLAY()
+    import game
+        
+for event in pygame.event.get():#quit
         if event.type == pygame.QUIT:
-            running = False
             pygame.quit()
-
-        # defini si la touche est appuyée ou non (a faire avant de detecter les touches)
-        elif event.type == pygame.KEYDOWN:
-            game.pressed[event.key] = True
-        elif event.type == pygame.KEYUP:
-            game.pressed[event.key] = False
-
-    
-    if vies == 0 :
-        pygame.quit()
-    
-    
-    for entity in entities:
-        entity.update()
-
-    # déplacement du personnage et mechant
-    player.idle()  
-    if game.pressed.get(pygame.K_RIGHT):
-        player.move_right([back.image.get_width(), back.image.get_height()])
-    if game.pressed.get(pygame.K_LEFT):
-        player.move_left([back.image.get_width(), back.image.get_height()])
-
-    if game.pressed.get(pygame.K_UP): 
-        player.jump()
-    if game.pressed.get(pygame.K_SPACE): 
-        player.jump()
-    if game.pressed.get(pygame.K_ESCAPE):
-            pygame.quit()
-        
-
-    # on déplace la caméra sur le joueur
-    camera_offset[0] = -(player.rect.x - width_max//2)
-  
-
-    #Montrer le personnage et mechant
-    for entity in entities:
-        entity.display(camera_offset)  
-  
-    # afficher les vies
-    """text = my_font.render('Vies: ' + str(vies), False, (0, 0, 0))
-    ecran.blit(text, (1300, 10))"""
-    heart_image = pygame.image.load(HEALTH)
-    def heart_imaging(x, y) :
-        ecran.blit(heart_image, (x, y))
-    
-
-
-
-
-    # si la map est 1 et que le joueur est a droite
-    if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
-        text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
-        ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
-        if game.pressed.get(pygame.K_RETURN):
-            camera_offset[0] = 0
-            camera_offset[1] = 0
-            current_map_id = 1
-            player.rect.x = 0
-            player.rect.y = 750
-            cactus.rect.x = 1110
-            cactus.rect.y = 750
-            back.setImage(1)
-            player.min_y = 750
-    #entrer dans la pyramide
-    elif current_map_id == 1 and 3050 <= player.rect.x <= 3250 :
-        text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
-        ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
-        if game.pressed.get(pygame.K_RETURN):
-            camera_offset[0] = 0
-            camera_offset[1] = 0
-            current_map_id = 2
-            player.rect.x = 0
-            player.rect.y = 750
-            back.setImage(2)
-            player.min_y = 750
-           
-    #data box to follow coonditions to take out hearts
-    a = player.rect.x
-    b = player.rect.y
-    c = cactus.rect.x
-    d = cactus.rect.y
-    rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
-    rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
-    
-    print(a, b, c, d)
-    
-    if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
-        if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
-            pygame.draw.rect(ecran, (255,10, 10), player.hitbox,1)  
-            pygame.draw.rect(ecran, (255,255, 255), cactus.hitbox,1)
-            print(rect1, rect2) 
-            vies -= 1 
-            if vies == 2:
-                heart_imaging(1300, 10 )
-                current_map_id = 0
-                player.rect.x = 0
-                player.rect.y = 666
-                back.setImage(0)
-                player.min_y = 666
-                cactus.rect.x = 1500
-                cactus.rect.y = 666
-                vies == 2
-            elif vies == 1:
-                current_map_id = 0
-                player.rect.x = 0
-                player.rect.y = 666
-                back.setImage(0)
-                player.min_y = 666
-                player.velocity_x = 13
-                player.velocity_y = 5
-                player.vitesse_x = 0
-                player.vitesse_y = 0
-                player.min_y = 666
-                cactus.rect.x = 1500
-                cactus.rect.y = 666
-                vies == 1
-    #animation des cœurs :
-    if vies == 3 :
-        heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
-    elif vies == 2 :
-        heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35)
-    else :
-        heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
-                
-                
-            
-                
-            
-    
-        
-
-    
+            sys.exit()
