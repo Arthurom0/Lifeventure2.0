@@ -49,6 +49,7 @@ animation = {
 player = Personnage(ecran)
 cactus = Mechant(ecran)
 back = Background(ecran)
+momie = Mechant(ecran)
 #charger le jeu
 game = Jeu()
 
@@ -96,10 +97,12 @@ while main_window == True :
         # defini si la touche est appuyée ou non (a faire avant de detecter les touches)
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
+        #    
         elif event.type == pygame.KEYUP:
             game.pressed[event.key] = False
 
-    
+
+        
     if vies == 0 :
         main_window = False
     
@@ -109,6 +112,8 @@ while main_window == True :
 
     # déplacement du personnage et mechant
     player.idle()  
+    #if player.vitesse_y != 0 :
+     #   player.jumping([back.image.get_width(), back.image.get_height()])
     if game.pressed.get(pygame.K_RIGHT):
         player.move_right([back.image.get_width(), back.image.get_height()])
     if game.pressed.get(pygame.K_LEFT):
@@ -119,11 +124,12 @@ while main_window == True :
     if game.pressed.get(pygame.K_SPACE): 
         player.jump()
     if game.pressed.get(pygame.K_ESCAPE):
-            main_window = False
-        
+            pygame.quit()
+    
 
     # on déplace la caméra sur le joueur
     camera_offset[0] = -(player.rect.x - width_max//2)
+
   
 
     #Montrer le personnage et mechant
@@ -131,8 +137,7 @@ while main_window == True :
         entity.display(camera_offset)  
   
     # afficher les vies
-    """text = my_font.render('Vies: ' + str(vies), False, (0, 0, 0))
-    ecran.blit(text, (1300, 10))"""
+
     heart_image = pygame.image.load(HEALTH)
     def heart_imaging(x, y) :
         ecran.blit(heart_image, (x, y))
@@ -180,8 +185,7 @@ while main_window == True :
     
     if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
         if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
-            pygame.draw.rect(ecran, (255,10, 10), player.hitbox,1)  
-            pygame.draw.rect(ecran, (255,255, 255), cactus.hitbox,1)
+
             print(rect1, rect2) 
             vies -= 1 
             if vies == 2:

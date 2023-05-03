@@ -71,13 +71,16 @@ class Personnage(pygame.sprite.Sprite):
             self.rect.x = 64
 
     def jump(self):
-            if self.vitesse_y == 0:
-                self.vitesse_y = -10
+        self.actuel = "saut"
+        if self.vitesse_y == 0:
+            self.vitesse_y = -10
+
 
     def update(self):
+        self.actuel = "saut"
         self.rect.y += self.vitesse_y
         self.vitesse_y += 0.7
-
+        
         if self.rect.y >= self.min_y:
             self.vitesse_y = 0        
             self.rect.y = self.min_y
