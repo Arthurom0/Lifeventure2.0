@@ -9,9 +9,12 @@ from Mechant import Mechant
 from Jeu import * 
 import time
 
+
+#Bonjour 
+
 pygame.init()
 pygame.font.init() 
- 
+ #Bonjour 
 
 screen = pygame.display.set_mode((1920,1080))
 pygame.display.set_caption("menu")
