@@ -73,7 +73,7 @@ class Personnage(pygame.sprite.Sprite):
         self.actuel = "saut"
         if self.vitesse_y == 0:
             self.vitesse_y = -10
-
+        
 
     def update(self):
         self.actuel = "saut"

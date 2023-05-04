@@ -8,7 +8,8 @@ from Background import Background
 from Mechant import Mechant
 from Jeu import * 
 import time
-
+from game import jeuprincipal
+#from game import vies
 
 #Bonjour 
 
@@ -17,64 +18,123 @@ pygame.font.init()
  #Bonjour 
 
 screen = pygame.display.set_mode((1920,1080))
-pygame.display.set_caption("menu")
 
-Back = pygame.image.load(MENU)
-Back = pygame.transform.scale(Back, (1920, 1080))
+
+
+
 clock = pygame.time.Clock()
 
-
-pygame.draw.rect(screen, (255,255, 255), pygame.Rect(371, 332, 1095, 250))
+this = True
+#pygame.draw.rect(screen, (255,255, 255), pygame.Rect(371, 332, 1095, 250))
 game = Jeu()
+while this == True :
+    def main_menu() :
+        pygame.display.set_caption("MENU")
+        #BG = pygame.display.set_mode((width, height))
+        #A = pygame.Rect(375, 330,1100, 240)
+        #B = pygame.Rect((600, 725), (265, 100))
+        menu = True
+        Back = pygame.image.load(MENU)
+        Back = pygame.transform.scale(Back, (1920, 1080))
 
-def main_menu() :
-    pygame.display.set_caption("MENU")
-    BG = pygame.display.set_mode((width, height))
-    #A = pygame.Rect(375, 330,1100, 240)
-    #B = pygame.Rect((600, 725), (265, 100))
-    menu = True
+        while menu == True  :#boucle principale
+            screen.blit(Back, (0,0))
+            Position_souris = pygame.mouse.get_pos()
+            delta_t = clock.tick(60)
+            font = pygame.font.Font('freesansbold.ttf', 32)
 
+            text = font.render(f'{Position_souris}', True, (255, 125, 0))
+            textRect = text.get_rect()
+            textRect.center = (100, 100)
+            screen.blit(text, textRect)
 
-    while menu == True  :#boucle principale
-        screen.blit(Back, (0,0))
-        Position_souris = pygame.mouse.get_pos()
-        delta_t = clock.tick(60)
-        font = pygame.font.Font('freesansbold.ttf', 32)
-
-        text = font.render(f'{Position_souris}', True, (255, 125, 0))
-        textRect = text.get_rect()
-        textRect.center = (100, 100)
-        screen.blit(text, textRect)
-        #pygame.draw.rect(screen, ( 123,123,123 ),A,  width=10)
-        #pygame.draw.rect(screen, ( 123,123,123 ),B,  width=10)
-        
-        for event in pygame.event.get():#quit
-            if event.type == pygame.QUIT:
-                pygame.quit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+            for event in pygame.event.get():#quit
+                if event.type == pygame.QUIT:
                     pygame.quit()
-            if event.type == pygame.MOUSEBUTTONDOWN: 
-                print(Position_souris)
-                if 600 < Position_souris[0] < 865 and  725 < Position_souris[1] <  825:
-                    return 1
-                if 951 < Position_souris[0] < 1204 and  725 < Position_souris[1] <  825:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                if event.type == pygame.MOUSEBUTTONDOWN: 
+                    print(Position_souris)
+                    if 600 < Position_souris[0] < 865 and  725 < Position_souris[1] <  825:
+                        return True
+                    if 951 < Position_souris[0] < 1204 and  725 < Position_souris[1] <  825:
+                        pygame.quit()
+                        sys.exit()
+            
+            
+            
+            
+            pygame.display.flip()
+    
+    def death_screen() :#ecran avec 2 optio apres mourir dans le jeu
+        pygame.display.set_caption("DEATH_screen")
+        #BG = pygame.display.set_mode(width, height)
+        Death = pygame.image.load(DEATH)
+        Death = pygame.transform.scale(Death, (1920, 1080))
+        death = True
+        
+        while death == True :
+            screen.blit(Death, (0,0))
+            
+            Position_souris = pygame.mouse.get_pos()
+    
+            delta_t = clock.tick(60)
+            font = pygame.font.Font('freesansbold.ttf', 32)
+            text = font.render("Restart ?", True, (255, 125, 0))
+            textRect = text.get_rect()
+            textRect.center = (987, 701)
+            text2 = font.render("menu", True, (255, 255, 255))
+            textRect2 = text2.get_rect()
+            textRect2.center = (969, 865)
+            screen.blit(text, textRect)
+            screen.blit(text2, textRect2)
+        
+            for event in pygame.event.get():#quit
+                if event.type == pygame.QUIT:
                     pygame.quit()
-                    sys.exit()
-        
-        
-        
-        
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                if event.type == pygame.MOUSEBUTTONDOWN: 
+                    print(Position_souris)
+                    if 772 < Position_souris[0] < 1175 and  645 < Position_souris[1] <  753:
+                        return False
+                    if 840 < Position_souris[0] < 1110 and  800 < Position_souris[1] <  916:
+                        return True    
+            pygame.display.flip()
+    
+    
+
+
+
+    if main_menu() == True :#boucle qui permet de launch main menu puis import le jeu
+        a = jeuprincipal()
+ 
+
+
+    if a == 0 : 
+        death_screen()
         pygame.display.flip()
+    while True :
+        if death_screen() == True :
+            main_menu()
+        #    pygame.display.flip()
+            break
+        if death_screen() == False :
+            jeuprincipal()
 
-for i in range (0): 
-    main_menu()
-if main_menu() == 1 :
-    print("hi")
-    #PLAY()
-    import game
-        
+        #pygame.display.flip()
+    pygame.display.flip()
+
+
+
+
+
+
 for event in pygame.event.get():#quit
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+
