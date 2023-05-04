@@ -112,8 +112,7 @@ while main_window == True :
 
     # déplacement du personnage et mechant
     player.idle()  
-    #if player.vitesse_y != 0 :
-     #   player.jumping([back.image.get_width(), back.image.get_height()])
+
     if game.pressed.get(pygame.K_RIGHT):
         player.move_right([back.image.get_width(), back.image.get_height()])
     if game.pressed.get(pygame.K_LEFT):

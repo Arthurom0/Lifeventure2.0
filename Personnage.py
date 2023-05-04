@@ -37,7 +37,6 @@ class Personnage(pygame.sprite.Sprite):
             "saut" : load_animation_images(DOSSIER_ANIM_JEUNE, "SautJeune", (32 *2, 32 *2)),
         } 
         self.actuel = "idle" 
-
     # Afficher les animations (frames)        
     def display(self, camera_offset):
         self.current_image = self.current_image % len(self.images[self.actuel])
