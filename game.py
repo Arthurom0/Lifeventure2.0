@@ -54,7 +54,7 @@ def jeuprincipal():
     game = Jeu()
 
     #vie du perso
-    vies = 1
+    vies = 3
     
     # qui permet de savoir sur quelle map on est
     current_map_id = 0
