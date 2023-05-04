@@ -30,7 +30,7 @@ def jeuprincipal():
     taille = 2
 
     #Musique
-    DO_PLAY_SOUND = True
+    DO_PLAY_SOUND = False
     if DO_PLAY_SOUND:
         pygame.mixer.music.load(MUSIQUE_FOND)
         pygame.mixer.music.set_volume(0.1)
@@ -54,7 +54,7 @@ def jeuprincipal():
     game = Jeu()
 
     #vie du perso
-    vies = 3
+    vies = 1
     
     # qui permet de savoir sur quelle map on est
     current_map_id = 0
