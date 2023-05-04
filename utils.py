@@ -30,3 +30,6 @@ animation = {
     "marche" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeune", (32, 32)),
     "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
 } 
+
+
+#bonjour 
