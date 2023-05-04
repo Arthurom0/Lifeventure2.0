@@ -82,7 +82,7 @@ main_window = True
 while main_window == True :
 
     #delta temps
-    delta_t = clock.tick(60)
+    delta_t = clock.tick(30)
 
     # mettre à jour l'écran
     pygame.display.flip()
@@ -112,20 +112,24 @@ while main_window == True :
 
     # déplacement du personnage et mechant
     player.idle()  
-
+    if player.vitesse_y != 0 and player.rect.x < player.velocity_x:
+        player.jump()
+    if player.vitesse_y > 0 or player.vitesse_y < 0 :
+        player.actuel =  "saut"
     if game.pressed.get(pygame.K_RIGHT):
         player.move_right([back.image.get_width(), back.image.get_height()])
     if game.pressed.get(pygame.K_LEFT):
         player.move_left([back.image.get_width(), back.image.get_height()])
 
-    if game.pressed.get(pygame.K_UP): 
+    if game.pressed.get(pygame.K_UP) or game.pressed.get(pygame.K_SPACE): 
         player.jump()
-    if game.pressed.get(pygame.K_SPACE): 
-        player.jump()
-    if game.pressed.get(pygame.K_ESCAPE):
-            pygame.quit()
+
     
 
+    if game.pressed.get(pygame.K_ESCAPE):
+            pygame.quit()
+
+    
     # on déplace la caméra sur le joueur
     camera_offset[0] = -(player.rect.x - width_max//2)
 
