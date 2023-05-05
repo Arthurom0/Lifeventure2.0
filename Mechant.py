@@ -11,7 +11,6 @@ class Mechant(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 1580
         self.rect.y = 666
-        self.attack = 10
         self.current_image = 0
         self.animation = True
         self.actuel = "idle_ennemi1" 

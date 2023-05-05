@@ -83,7 +83,7 @@ def jeuprincipal():
 
 
         #delta temps
-        delta_t = clock.tick(30)
+        delta_t = clock.tick(20)
 
         # mettre à jour l'écran
         pygame.display.flip()
