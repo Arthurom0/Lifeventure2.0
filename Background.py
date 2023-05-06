@@ -7,6 +7,7 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
     def __init__(self, ecran):
         super().__init__()
         self.ecran = ecran
+        self.entites = []
         self.setImage(0)
         
     def display(self, camera_offset):

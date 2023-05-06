@@ -8,7 +8,7 @@ from Personnage import Personnage
 from Background import Background
 from Mechant import Mechant
 from Jeu import *
-#from momie import Momie 
+from momie import Momie 
 pygame.init()
 pygame.font.init() 
 def jeuprincipal():
@@ -44,14 +44,14 @@ def jeuprincipal():
     animation = {
         "marche" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeune", (32, 32)),
         "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
-        #"momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32,32))
+        "momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32,32))
     } 
 
     #charger le personnage
-    player = Personnage(ecran)
+    player = Personnage(ecran, 1)
     cactus = Mechant(ecran)
     back = Background(ecran)
-    #momie = Momie(ecran)
+    momie = Momie(ecran)
     #charger le jeu
     game = Jeu()
 
@@ -62,7 +62,7 @@ def jeuprincipal():
     current_map_id = 0
 
     # liste qui va conteir les truc a afficher (fond, mobs, joueur, items...)
-    entities = [back, player, cactus]
+    entities = [back, player, cactus, momie]
 
     # placement de la caméra qu'on peut déplacer indépendamenr du joueur
     camera_offset = [0, 0]
@@ -153,18 +153,36 @@ def jeuprincipal():
         
 
 
+        portes = [
+            # mapid, xmin, xmax, player.rect.x
+            [0, 2710, 2770, 0, 300], 
+            [1, 3050, 3250, 0, 750]
+        ]
 
+        for porte in portes:
+            if current_map_id == porte[0] and player.rect.x >= porte[1] and player.rect.x <= porte[2] :
+                text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
+                ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
+                if game.pressed.get(pygame.K_RETURN):
+                    camera_offset[0] = 0
+                    camera_offset[1] = 0
+                    current_map_id = 1
+                    player.rect.x=  porte[3]
+                    cactus.rect.x = porte[4]
+                    cactus.rect.y = 750
+                    back.setImage(1)
+                    player.min_y = 750
 
+            
         # si la map est 1 et que le joueur est a droite
-        if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
+        """if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
             text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
             ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
             if game.pressed.get(pygame.K_RETURN):
                 camera_offset[0] = 0
                 camera_offset[1] = 0
                 current_map_id = 1
-                player.rect.x = 0
-                player.rect.y = 750
+
                 cactus.rect.x = 1110
                 cactus.rect.y = 750
                 back.setImage(1)
@@ -181,7 +199,8 @@ def jeuprincipal():
                 player.rect.y = 750
                 back.setImage(2)
                 player.min_y = 750
-            
+        """
+
         #data box to follow coonditions to take out hearts
         a = player.rect.x
         b = player.rect.y
@@ -233,3 +252,4 @@ def jeuprincipal():
         if event.type == pygame.QUIT:
             pygame.quit()                           
 
+jeuprincipal()

@@ -5,7 +5,7 @@ from utils import load_animation_images
 #classe qui représente le personnage
 class Personnage(pygame.sprite.Sprite):
 
-    def __init__(self, ecran):
+    def __init__(self, ecran, current_map_id):
         super().__init__()
         self.ecran = ecran
         self.tick = pygame.time.Clock().tick()
@@ -23,11 +23,13 @@ class Personnage(pygame.sprite.Sprite):
         self.image = pygame.image.load(ANIM_JEUNE)
         self.rect = self.image.get_rect()
         self.on_ground = True
-        self.rect.x = 800
-        self.rect.y = 666
-        
-
-        
+        print(current_map_id)
+        if current_map_id == 0 : 
+            self.rect.x = 800
+            self.rect.y = 666  
+        if current_map_id == 1 and current_map_id == 2 :
+            self.rect.x = 0
+            self.rect.y = 750
         self.current_image = 0
         self.animation = True
         self.images = {

@@ -8,7 +8,7 @@ class Momie(pygame.sprite.Sprite):
         super().__init__()
         self.ecran = ecran 
         self.tick = pygame.time.Clock().tick()
-        self.image = pygame.image.load(ENNEMI_MOMIE)  # liste des images de la momie
+        self.image = pygame.image.load(MOMIE)  # liste des images de la momie
         self.index = 0  # index de l'image actuelle dans la liste des images
 
         self.rect = self.image.get_rect()
@@ -25,22 +25,23 @@ class Momie(pygame.sprite.Sprite):
         self.direction = 1  # direction de déplacement de la momie (1 pour droite, -1 pour gauche)
 
         self.images = {
-            "momie_gauche": load_animation_images(DOSSIER_ENNEMI, "Momie_gauche", (32 * 2, 32 * 2)),
-            "momie_droite": load_animation_images(DOSSIER_ENNEMI, "Momie_droite", (32 * 2, 32 * 2))
-        
+            "momie_gauche": load_animation_images(ENNEMI_MOMIE, "Momie_gauche", (32 * 2, 32 * 2)),
+            "momie_droite": load_animation_images(ENNEMI_MOMIE, "Momie_droite", (32 * 2, 32 * 2))
         }
+
         self.actuel = "momie_gauche"
     def idle(self):
         self.actuel = "momie_gauche"
         
     def display(self, camera_offset):
-        self.current_image = self.current_image % len(self.images[self.actuel])
+        # self.current_image = self.current_image % len(self.images[self.actuel])
 
         pixel_x = self.rect.x + camera_offset[0]
         pixel_y = self.rect.y + camera_offset[1]
 
-        self.ecran.blit(self.images[self.actuel][int(self.current_image)], (pixel_x, pixel_y))
-        self.current_image += 1
+        # self.ecran.blit(self.images[self.actuel][int(self.current_image)], (pixel_x, pixel_y))
+        self.ecran.blit(self.image, (pixel_x, pixel_y))
+        #self.current_image += 1
 
     def move_right(self, container):
         """
