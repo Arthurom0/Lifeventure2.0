@@ -8,6 +8,7 @@ from Personnage import Personnage
 from Background import Background
 from Mechant import Mechant
 from Jeu import *
+#from momie import Momie 
 pygame.init()
 pygame.font.init() 
 def jeuprincipal():
@@ -43,13 +44,14 @@ def jeuprincipal():
     animation = {
         "marche" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeune", (32, 32)),
         "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
+        #"momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32,32))
     } 
 
     #charger le personnage
     player = Personnage(ecran)
     cactus = Mechant(ecran)
     back = Background(ecran)
-    momie = Mechant(ecran)
+    #momie = Momie(ecran)
     #charger le jeu
     game = Jeu()
 
@@ -115,6 +117,7 @@ def jeuprincipal():
 
         # déplacement du personnage et mechant
         player.idle()  
+        #momie.idle()
         if player.vitesse_y != 0 and player.rect.x < player.velocity_x:
             player.jump()
         if player.vitesse_y > 0 or player.vitesse_y < 0 :
@@ -231,5 +234,5 @@ def jeuprincipal():
             pygame.quit()                           
                     
 
-#jeuprincipal()        
+jeuprincipal()        
 
