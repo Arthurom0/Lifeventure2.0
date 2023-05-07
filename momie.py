@@ -9,7 +9,7 @@ class Momie(pygame.sprite.Sprite):
         self.ecran = ecran 
         self.tick = pygame.time.Clock().tick()
         self.image = pygame.image.load(MOMIE)  # liste des images de la momie
-        self.image = pygame.transform.scale(self.image, (32, 32))
+        self.image = pygame.transform.scale(self.image, (52, 66))
         self.index = 0  # index de l'image actuelle dans la liste des images
 
         self.rect = self.image.get_rect()
@@ -26,8 +26,8 @@ class Momie(pygame.sprite.Sprite):
         self.direction = 1  # direction de déplacement de la momie (1 pour droite, -1 pour gauche)
 
         self.images = {
-            "momie_gauche": load_animation_images(ENNEMI_MOMIE, "Momie_gauche", (52*2, 66*2)),
-            "momie_droite": load_animation_images(ENNEMI_MOMIE, "Momie_droite", (52*2, 66*2))
+            "momie_gauche": load_animation_images(ENNEMI_MOMIE, "Momie_gauche", (26*2, 33*2)),
+            "momie_droite": load_animation_images(ENNEMI_MOMIE, "Momie_droite", (26*2, 33*2))
         }
 
         self.actuel = "momie_gauche"

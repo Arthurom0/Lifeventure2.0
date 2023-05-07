@@ -15,7 +15,7 @@ class Mechant(pygame.sprite.Sprite):
         self.animation = True
         self.actuel = "idle_ennemi1" 
         self.images = {
-            "idle_ennemi1" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32 * 2, 32 * 2)), 
+            "idle_ennemi1" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (26 * 2, 33 * 2)), 
         } 
 
     def display(self, camera_offset):
