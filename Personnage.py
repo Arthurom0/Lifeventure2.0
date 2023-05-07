@@ -33,8 +33,10 @@ class Personnage(pygame.sprite.Sprite):
             "marche_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeuneD", (23 *2, 32*2)), 
             "idle" : load_animation_images(DOSSIER_ANIM_JEUNE, "JeuneIdle", (23 *2, 32 *2)),
             'marche_gauche' : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeuneG", (23 *2, 32 *2)),
-            "saut" : load_animation_images(DOSSIER_ANIM_JEUNE, "SautJeune", (32 *2, 32 *2)),
-            "attaque" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaque", (32 *2, 32 *2)),
+            "saut_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "Saut_jeuneD", (32 *2, 32 *2)),
+            "attaque_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaqueD", (32 *2, 32 *2)),
+            "saut_gauche" : load_animation_images(DOSSIER_ANIM_JEUNE, "Saut_jeuneG", (32 *2, 32 *2)),
+            "attaque_gauche" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaqueG", (32 *2, 32 *2)),
         } 
         self.actuel = "idle" 
     # Afficher les animations (frames)        
@@ -69,21 +71,29 @@ class Personnage(pygame.sprite.Sprite):
         if self.rect.x < 64:
             self.rect.x = 64
 
-    def jump(self):
-        self.actuel = "saut"
+    def jumpD(self):
+        self.actuel = "saut_droite"
         if self.vitesse_y == 0:
             self.vitesse_y = -10
 
-    def attaque(self):
+    def jumpG(self):
+        self.actuel = "saut_gauche"
+        if self.vitesse_y == 0:
+            self.vitesse_y = -10
+
+    def attaqueD(self):
         
-        self.actuel = "attaque"
+        self.actuel = "attaque_droite"
+    def attaqueG(self):
+        
+        self.actuel = "attaque_gauche"
         
        
         
         
 
     def update(self):
-        self.actuel = "saut"
+        self.actuel = "saut_droite" or "saut_gauche"
         self.rect.y += self.vitesse_y
         self.vitesse_y += 0.7
         

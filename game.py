@@ -131,17 +131,25 @@ def jeuprincipal():
         player.idle()  
         #momie.idle()
         if player.vitesse_y != 0 and player.rect.x < player.velocity_x:
-            player.jump()
+            player.jumpD() or player.jumpG()
         if player.vitesse_y > 0 or player.vitesse_y < 0 :
-            player.actuel =  "saut"
+            player.actuel =  "saut_droite" or "saut_gauche"
         if game.pressed.get(pygame.K_RIGHT):
             player.move_right([back.image.get_width(), back.image.get_height()])
         if game.pressed.get(pygame.K_LEFT):
             player.move_left([back.image.get_width(), back.image.get_height()])
-        if game.pressed.get(pygame.K_UP):
-            player.jump()
-        if game.pressed.get(pygame.K_SPACE): 
-            player.attaque()
+        if game.pressed.get(pygame.K_UP) and player.actuel == "marche_droite":
+            player.jumpD()
+        if game.pressed.get(pygame.K_UP) and player.actuel == "idle":
+            player.jumpD()
+        if game.pressed.get(pygame.K_UP) and player.actuel == "marche_gauche":
+            player.jumpG()
+        if game.pressed.get(pygame.K_SPACE) and player.actuel == "marche_droite":
+            player.attaqueD()
+        if game.pressed.get(pygame.K_SPACE) and player.actuel == "marche_gauche":
+            player.attaqueG()
+        if game.pressed.get(pygame.K_SPACE) and player.actuel == "idle":
+            player.attaqueD()
         if game.pressed.get(pygame.K_ESCAPE):
                 pygame.quit()
 
