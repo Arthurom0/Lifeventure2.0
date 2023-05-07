@@ -31,4 +31,3 @@ animation = {
     "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
 } 
 
-
