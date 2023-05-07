@@ -127,8 +127,10 @@ def jeuprincipal():
         if game.pressed.get(pygame.K_LEFT):
             player.move_left([back.image.get_width(), back.image.get_height()])
 
-        if game.pressed.get(pygame.K_UP) or game.pressed.get(pygame.K_SPACE): 
+        if game.pressed.get(pygame.K_UP):
             player.jump()
+        if game.pressed.get(pygame.K_SPACE): 
+            player.attaque()
 
         
 
