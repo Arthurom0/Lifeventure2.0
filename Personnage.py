@@ -34,7 +34,7 @@ class Personnage(pygame.sprite.Sprite):
             "idle" : load_animation_images(DOSSIER_ANIM_JEUNE, "JeuneIdle", (23 *2, 32 *2)),
             'marche_gauche' : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeuneG", (23 *2, 32 *2)),
             "saut" : load_animation_images(DOSSIER_ANIM_JEUNE, "SautJeune", (32 *2, 32 *2)),
-            "attaque" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaque", (23 *2, 32 *2)),
+            "attaque" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaque", (32 *2, 32 *2)),
         } 
         self.actuel = "idle" 
     # Afficher les animations (frames)        

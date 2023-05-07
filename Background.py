@@ -85,3 +85,50 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
                         self.setImage(2)
 
 
+
+    def ANIM_COEUR(self, player, cactus, camera_offset, heart_imaging, vies) : 
+            a = player.rect.x
+            b = player.rect.y
+            c = cactus.rect.x
+            d = cactus.rect.y
+            rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
+            rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
+            
+            print(a, b, c, d)
+            
+            if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
+                if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
+
+                    print(rect1, rect2) 
+                    vies -= 1 
+                    if vies == 2:
+                        heart_imaging(1300, 10 )                                    
+                        current_map_id = 0
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        self.setImage(0)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        vies = 2
+                    elif vies == 1:
+                        current_map_id = 0
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        self.setImage(0)
+                        player.min_y = 666
+                        player.velocity_x = 13
+                        player.velocity_y = 5
+                        player.vitesse_x = 0
+                        player.vitesse_y = 0
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        vies = 1
+            #animation des cœurs :
+            if vies == 3 :
+                heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
+            elif vies == 2 :
+                heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35)
+            else :
+                heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)

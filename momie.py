@@ -26,8 +26,8 @@ class Momie(pygame.sprite.Sprite):
         self.direction = 1  # direction de déplacement de la momie (1 pour droite, -1 pour gauche)
 
         self.images = {
-            "momie_gauche": load_animation_images(ENNEMI_MOMIE, "Momie_gauche", (64 * 2, 64 * 2)),
-            "momie_droite": load_animation_images(ENNEMI_MOMIE, "Momie_droite", (64 * 2, 64 * 2))
+            "momie_gauche": load_animation_images(ENNEMI_MOMIE, "Momie_gauche", (52*2, 66*2)),
+            "momie_droite": load_animation_images(ENNEMI_MOMIE, "Momie_droite", (52*2, 66*2))
         }
 
         self.actuel = "momie_gauche"

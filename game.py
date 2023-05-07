@@ -44,7 +44,7 @@ def jeuprincipal():
     animation = {
         "marche" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeune", (32, 32)),
         "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
-        "momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32,32))
+        "momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32, 32))
     } 
 
     #charger le personnage
@@ -89,6 +89,8 @@ def jeuprincipal():
 
         # mettre à jour l'écran
    
+
+        pygame.display.flip()
         
 
         #fermeture de la fenêtre
@@ -110,9 +112,7 @@ def jeuprincipal():
 
 
 
-
-        pygame.display.flip()
-
+        
 
 
 
@@ -154,15 +154,8 @@ def jeuprincipal():
             entity.display(camera_offset)
 
 
-        back.Portes(
-            game, player, cactus, momie, ecran, camera_offset, width_max)
+        back.Portes(game, player, cactus, momie, ecran, camera_offset, width_max)
         
-        
-        #pygame.display.flip()   
-
-    
-        #pygame.display.flip()   
-
 
 
         # afficher les vies
@@ -170,95 +163,11 @@ def jeuprincipal():
         heart_image = pygame.image.load(HEALTH)
         def heart_imaging(x, y) :
             ecran.blit(heart_image, (x, y))
+
         
-        
+        #data box to follow conditions to take out hearts
+        back.ANIM_COEUR(player, cactus, camera_offset, heart_imaging, vies)
 
-
-
-        """
-        portes = [
-            # mapid, xmin, xmax, player.rect.x
-            [0, 2710, 2770, 0, 300], 
-            [1, 3050, 3250, 0, 750]
-        ]
-        
-
-
-
-            
-        # si la map est 1 et que le joueur est a droite
-        if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
-            text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
-            ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
-            if game.pressed.get(pygame.K_RETURN):
-                camera_offset[0] = 0
-                camera_offset[1] = 0
-                current_map_id = 1
-
-                cactus.rect.x = 1110
-                cactus.rect.y = 750
-                back.setImage(1)
-                player.min_y = 750
-        #entrer dans la pyramide
-        elif current_map_id == 1 and 3050 <= player.rect.x <= 3250 :
-            text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
-            ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
-            if game.pressed.get(pygame.K_RETURN):
-                camera_offset[0] = 0
-                camera_offset[1] = 0
-                current_map_id = 2
-                player.rect.x = 0
-                player.rect.y = 750
-                back.setImage(2)
-                player.min_y = 750
-        """
-
-        #data box to follow coonditions to take out hearts
-        a = player.rect.x
-        b = player.rect.y
-        c = cactus.rect.x
-        d = cactus.rect.y
-        rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
-        rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
-        
-        print(a, b, c, d)
-        
-        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
-            if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
-
-                print(rect1, rect2) 
-                vies -= 1 
-                if vies == 2:
-                    heart_imaging(1300, 10 )                                    
-                    current_map_id = 0
-                    player.rect.x = 0
-                    player.rect.y = 666
-                    back.setImage(0)
-                    player.min_y = 666
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 666
-                    vies = 2
-                elif vies == 1:
-                    current_map_id = 0
-                    player.rect.x = 0
-                    player.rect.y = 666
-                    back.setImage(0)
-                    player.min_y = 666
-                    player.velocity_x = 13
-                    player.velocity_y = 5
-                    player.vitesse_x = 0
-                    player.vitesse_y = 0
-                    player.min_y = 666
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 666
-                    vies = 1
-        #animation des cœurs :
-        if vies == 3 :
-            heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
-        elif vies == 2 :
-            heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35)
-        else :
-            heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
     #fermeture de la fenêtre
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
