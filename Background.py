@@ -14,7 +14,10 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
         self.entites = []
         self.setImage(0)
         ecran = pygame.display.set_mode((width, height))
-
+        self.hearts = [
+                [1,2],
+                [2,1]
+        ]
     def display(self, camera_offset):
         pixel_x = self.rect.x + camera_offset[0]
         pixel_y = self.rect.y + camera_offset[1]
@@ -70,13 +73,7 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
                     cactus.rect.y = porte[7]
                     momie.rect.x = porte[5]
                     momie.rect.y = porte[7]
-                    if porte[0] > 1 :
-                        if porte[5] >=  momie.rect.x : 
-                            while not momie.rect.x == porte[6] :
-                                momie.move_right()
-                        if porte[6] == momie.rect.x :
-                            while not momie.rect.x == porte[5] :
-                                Momie.move_left()
+
                     if porte[0] == 0 :  
                         self.setImage(0)
                     if porte[1] == 1 :
@@ -86,49 +83,24 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
 
 
 
-    def ANIM_COEUR(self, player, cactus, camera_offset, heart_imaging, vies) : 
-            a = player.rect.x
-            b = player.rect.y
-            c = cactus.rect.x
-            d = cactus.rect.y
-            rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
-            rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
-            
-            print(a, b, c, d)
-            
-            if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
-                if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
+    def LES_COEURS(self, player) : #permet de afficher les coeurs
+        current_map_id = 0
+        player.rect.x = 0
+        player.rect.y = 666
+        self.setImage(0)
+        player.min_y = 666
+        player.velocity_x = 13
+        player.velocity_y = 5
+        player.vitesse_x = 0
+        player.vitesse_y = 0
+        player.min_y = 666
 
-                    print(rect1, rect2) 
-                    vies -= 1 
-                    if vies == 2:
-                        heart_imaging(1300, 10 )                                    
-                        current_map_id = 0
-                        player.rect.x = 0
-                        player.rect.y = 666
-                        self.setImage(0)
-                        player.min_y = 666
-                        cactus.rect.x = 1500
-                        cactus.rect.y = 666
-                        vies = 2
-                    elif vies == 1:
-                        current_map_id = 0
-                        player.rect.x = 0
-                        player.rect.y = 666
-                        self.setImage(0)
-                        player.min_y = 666
-                        player.velocity_x = 13
-                        player.velocity_y = 5
-                        player.vitesse_x = 0
-                        player.vitesse_y = 0
-                        player.min_y = 666
-                        cactus.rect.x = 1500
-                        cactus.rect.y = 666
-                        vies = 1
-            #animation des cœurs :
-            if vies == 3 :
-                heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
-            elif vies == 2 :
-                heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35)
-            else :
-                heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
+
+
+            
+        
+        
+    
+            
+            
+            

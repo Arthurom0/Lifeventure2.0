@@ -56,7 +56,7 @@ def jeuprincipal():
     game = Jeu()
 
     #vie du perso
-    vies = 1
+    vies = 3
     
     # qui permet de savoir sur quelle map on est
     current_map_id = 0
@@ -90,7 +90,7 @@ def jeuprincipal():
         # mettre à jour l'écran
    
 
-        pygame.display.flip()
+
         
 
         #fermeture de la fenêtre
@@ -108,11 +108,6 @@ def jeuprincipal():
         
         #fonts :
         my_font = pygame.font.SysFont('Comic Sans MS', 30, True)
-
-
-
-
-        
 
 
 
@@ -164,7 +159,7 @@ def jeuprincipal():
 
         back.Portes(game, player, cactus, momie, ecran, camera_offset, width_max)
         
-
+        #back.ANIM_COEUR(player, cactus, camera_offset, vies)
 
         # afficher les vies
 
@@ -174,13 +169,40 @@ def jeuprincipal():
 
         
         #data box to follow conditions to take out hearts
-        back.ANIM_COEUR(player, cactus, camera_offset, heart_imaging, vies)
+        a = player.rect.x
+        b = player.rect.y
+        c = cactus.rect.x
+        d = cactus.rect.y
+        rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
+        rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
+        
+        #print(a, b, c, d)
+        
+        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
+            if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
+                vies -= 1
+                back.LES_COEURS(player)
+                                            
+                
+                
+                print(vies)
+
+
+                            
+        print(vies)
+            #animation des cœurs :
+        if vies == 3 :
+            heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
+        if vies == 2 :
+            heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35)
+        else :
+            heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
+
+        pygame.display.flip()
 
     #fermeture de la fenêtre
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()                           
-
-
+            pygame.quit() 
 
 jeuprincipal()

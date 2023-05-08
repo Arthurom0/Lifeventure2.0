@@ -102,6 +102,6 @@ class Personnage(pygame.sprite.Sprite):
             self.rect.y = self.min_y
 
         #print(self.rect.x, self.rect.y)
-    def life(self) :
-        print(self.health)
+    """def life(self) :
+        print(self.health)"""
         
