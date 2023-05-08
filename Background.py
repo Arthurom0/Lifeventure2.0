@@ -18,6 +18,8 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
                 [1,2],
                 [2,1]
         ]
+        self.x_mouvement_momie = [1000, 1400]
+        
     def display(self, camera_offset):
         pixel_x = self.rect.x + camera_offset[0]
         pixel_y = self.rect.y + camera_offset[1]
@@ -37,7 +39,7 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
 
         next
 
-    def Portes(self, game, player, cactus, momie, ecran, camera_offset, width_max) :
+    def Portes(self, smt,  game, player, cactus, momie, ecran, camera_offset, width_max) :
         
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -47,17 +49,15 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
                     game.pressed[event.key] = False
         #ordre = [map_id, xmin et max de player, rect.x de player……]
         self.portes = [
-            [1, 2710, 2770, 700, 900, 1000, 1500, 750],
-            [2, 3050, 3250, 700, 750, 700, 1500, 750], 
-            [3, 3050, 3250, 0, 750, 700, 1500, 750]
+            [1, 2710, 2770, 600, 900, 1000, 1500, 750, 0],
+            [2, 2710, 2770, 600, 900, 1000, 1500, 750, 1], 
+            [2, 3050, 3250, 0, 750, 700, 1500, 750, 1]
         ]
         camera_offset[0] = -(player.rect.x - width_max//2)
         
-        #ecran = pygame.display.set_mode((width, height))
-            
+        #fonction qui permet de actualiser les coordonées des sprites dans le jeu quand le personnage change de map en cliquant sur return lorsqu'il est devant la porte
         for porte in self.portes :
-
-
+            
             if player.rect.x >= porte[1]  and  player.rect.x <= porte[2]:
                 my_font = pygame.font.SysFont('Comic Sans MS', 30, True)
                 text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
@@ -82,25 +82,60 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
                         self.setImage(2)
 
 
-
-    def LES_COEURS(self, player) : #permet de afficher les coeurs
+    #fonction que permet de placer les sprites au début de la game
+    def START(self, player, cactus, momie):
+        
+        #attribus de la map/ backrgound appelé back dans game.py
         current_map_id = 0
-        player.rect.x = 0
-        player.rect.y = 666
         self.setImage(0)
+
+        #attribus donnés au personnnages pricipal tel que la vitesse et les coordonées généraux qui sont reset lorques le personnage meurs
+        player.rect.x = 0
+        player.rect.y = 666       
         player.min_y = 666
         player.velocity_x = 13
         player.velocity_y = 5
         player.vitesse_x = 0
         player.vitesse_y = 0
+
+        #coordonées de ennemis : cactus et momies
+        cactus.rect.x = 1500
+        cactus.rect.y = 666
+        momie.rect.x = 1789 
+        momie.rect.y = 666
+
+    #fonction qui permet de supprimer des vies au personnage au fur et a mesure de la partie  
+    def LES_COEURS(self, player, cactus, momie ) : #permet de afficher les coeurs
+
+        #attribus de la map/ backrgound appelé back dans game.py
+        current_map_id = 0
+        self.setImage(0)
+
+        #attribus donnés au personnnages pricipal tel que la vitesse et les coordonées généraux qui sont reset lorques le personnage meurs
+        player.rect.x = 0
+        player.rect.y = 666       
         player.min_y = 666
+        player.velocity_x = 13
+        player.velocity_y = 5
+        player.vitesse_x = 0
+        player.vitesse_y = 0
 
-
-
-            
-        
-        
+        #coordonées de ennemis : cactus et momies
+        cactus.rect.x = 1500
+        cactus.rect.y = 666
+        momie.rect.x = 1789 
+        momie.rect.y = 666
     
-            
-            
-            
+    
+    
+    
+    
+
+
+
+    def MOUV_MOMIE(self, momie) :
+        if momie.rect.x > 900: 
+            momie.move_left()
+        
+        if momie.rect.x < 1000 : 
+            momie.move_right()

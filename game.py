@@ -54,7 +54,7 @@ def jeuprincipal():
     momie = Momie(ecran)
     #charger le jeu
     game = Jeu()
-
+    
     #vie du perso
     vies = 3
     
@@ -64,19 +64,13 @@ def jeuprincipal():
     # liste qui va conteir les truc a afficher (fond, mobs, joueur, items...)
     entities = [back, player, cactus, momie]
 
+
+    #fonction qui place les éléments au début :
+    back.START(player, cactus, momie)
     # placement de la caméra qu'on peut déplacer indépendamenr du joueur
     camera_offset = [0, 0]
+    back.Portes( 0, game, player, cactus, momie, ecran, camera_offset, width_max)
 
-    """#Change la map/ place la map
-    def set_nd_map():
-        global current_map_id
-        camera_offset[0] = 0
-        camera_offset[1] = 0
-        current_map_id = 1
-        player.rect.x = 0
-        player.rect.y = 900
-        back.setImage(1)
-        player.min_y = 900"""
         
 
     # tant que le jeu est en marche...
@@ -109,16 +103,9 @@ def jeuprincipal():
         #fonts :
         my_font = pygame.font.SysFont('Comic Sans MS', 30, True)
 
-
-
-
-
         if vies == 0 :
             return vies
-            
-            
-            
-        
+                        
         for entity in entities:
             entity.update()
 
@@ -148,7 +135,6 @@ def jeuprincipal():
         if game.pressed.get(pygame.K_ESCAPE):
                 pygame.quit()
 
-        # on déplace la caméra sur le joueur
 
 
 
@@ -156,9 +142,15 @@ def jeuprincipal():
         for entity in entities:
             entity.display(camera_offset)
 
-
-        back.Portes(game, player, cactus, momie, ecran, camera_offset, width_max)
+        #fonction de porte
+        back.Portes( 1, game, player, cactus, momie, ecran, camera_offset, width_max)
+        back.MOUV_MOMIE(momie)
+        """if cactus.rect.x > 0 :
+            cactus.LEFT()"""
         
+
+        
+
         #back.ANIM_COEUR(player, cactus, camera_offset, vies)
 
         # afficher les vies
@@ -181,7 +173,7 @@ def jeuprincipal():
         if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
             if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
                 vies -= 1
-                back.LES_COEURS(player)
+                back.LES_COEURS(player, cactus, momie)
                                             
                 
                 

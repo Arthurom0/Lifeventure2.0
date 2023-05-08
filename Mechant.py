@@ -11,12 +11,17 @@ class Mechant(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = 1580
         self.rect.y = 666
+
         self.current_image = 0
         self.animation = True
         self.actuel = "idle_ennemi1" 
         self.images = {
             "idle_ennemi1" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (26 * 2, 33 * 2)), 
         } 
+
+    def LEFT(self) : 
+        self.actuel = "idle_ennemi1"
+        self.rect.x -= 10
 
     def display(self, camera_offset):
         self.current_image = self.current_image % len(self.images[self.actuel])

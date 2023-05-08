@@ -44,24 +44,22 @@ class Momie(pygame.sprite.Sprite):
         self.ecran.blit(self.image, (pixel_x, pixel_y))
         #self.current_image += 1
 
-    def move_right(self, container):
+    def move_right(self):
         """
         container est une liste [x, y] qui contient la largeuyr et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
         self.actuel = "momie_droite"
         self.rect.x += self.velocity_x
         # marge de 64 sur lequel le joueur ne peut pas aller a droite
-        if self.rect.x > container[0] - 64 :
-            self.rect.x = container[0] - 64 
+
         
     def move_left(self):
         """
         container est une liste [x, y] qui contient la largeuyr et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
         self.actuel = "marche_gauche"
-        self.rect.x -= self.velocity_x
-        if self.rect.x < 64:
-            self.rect.x = 64
+        self.rect.x -= 3
+
 
 
 
