@@ -11,7 +11,7 @@ class Boss(pygame.sprite.Sprite) :
         self.tick = pygame.time.Clock().tick()
         self.image = pygame.image.load(ENNEMI_CACTUS)
         self.rect = self.image.get_rect()
-    
+        self.rect.x = 1000
         self.current_image = 0
         self.animation = True 
        

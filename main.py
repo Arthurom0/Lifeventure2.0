@@ -56,9 +56,9 @@ while this == True :
                         pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN: 
                     print(Position_souris)
-                    if 600 < Position_souris[0] < 865 and  725 < Position_souris[1] <  825:
+                    if 735 < Position_souris[0] < 1090 and  645 < Position_souris[1] <  800:
                         return True
-                    if 951 < Position_souris[0] < 1204 and  725 < Position_souris[1] <  825:
+                    if 800 < Position_souris[0] < 1050 and  840 < Position_souris[1] <  940:
                         pygame.quit()
                         sys.exit()
             
@@ -71,7 +71,7 @@ while this == True :
         pygame.display.set_caption("DEATH_screen")
         #BG = pygame.display.set_mode(width, height)
         Death = pygame.image.load(DEATH)
-        Death = pygame.transform.scale(Death, (1920, 1080))
+        
         death = True
         
         while death == True :
@@ -79,16 +79,7 @@ while this == True :
             
             Position_souris = pygame.mouse.get_pos()
     
-            delta_t = clock.tick(60)
-            font = pygame.font.Font('freesansbold.ttf', 32)
-            text = font.render("Restart ?", True, (255, 125, 0))
-            textRect = text.get_rect()
-            textRect.center = (987, 701)
-            text2 = font.render("menu", True, (255, 255, 255))
-            textRect2 = text2.get_rect()
-            textRect2.center = (969, 865)
-            screen.blit(text, textRect)
-            screen.blit(text2, textRect2)
+            delta_t = clock.tick(30)
         
             for event in pygame.event.get():#quit
                 if event.type == pygame.QUIT:
@@ -101,10 +92,10 @@ while this == True :
                     if 772 < Position_souris[0] < 1175 and  645 < Position_souris[1] <  753:
                         return False
                     if 840 < Position_souris[0] < 1110 and  800 < Position_souris[1] <  916:
-                        return True    
+                        return True   
             pygame.display.flip()
-    
-    
+
+
 
 
 
@@ -124,8 +115,7 @@ while this == True :
         if death_screen() == False :
             jeuprincipal()
 
-        #pygame.display.flip()
-    pygame.display.flip()
+
 
 
 
@@ -136,5 +126,3 @@ for event in pygame.event.get():#quit
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
-

@@ -24,8 +24,8 @@ class Personnage(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.on_ground = True
         self.rect.x = 800
-        self.rect.y = 666  
-
+        self.rect.y = 666       
+        self.min_y = 666
 
         self.current_image = 0
         self.animation = True

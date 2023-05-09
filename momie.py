@@ -13,7 +13,7 @@ class Momie(pygame.sprite.Sprite):
         self.index = 0  # index de l'image actuelle dans la liste des images
 
         self.rect = self.image.get_rect()
-        self.rect.x = 2000
+        self.rect.x = 1789 
         self.rect.y = 666
         self.current_image = 0
         self.animation = True
