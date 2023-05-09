@@ -13,7 +13,7 @@ class Personnage(pygame.sprite.Sprite):
         self.max_health = 100
         self.attack = 10
 
-        self.velocity_x = 13
+        self.velocity_x = 30
         self.velocity_y = 5
         self.vitesse_x = 0
         self.vitesse_y = 0

@@ -93,9 +93,7 @@ def jeuprincipal():
         pygame.display.flip()
 
 
-        if current_map_id == 2 :
-            entities.append(boss)
-        
+
 
         #fermeture de la fenêtre
         for event in pygame.event.get():
@@ -170,7 +168,12 @@ def jeuprincipal():
         #Montrer le personnage et mechant
         for entity in entities:
             entity.display(camera_offset)
-    
+            if current_map_id == 2 :
+                boss.display(camera_offset)
+                if boss.rect.x - 60 < player.rect.x < boss.rect.x + 400 :
+                    boss.atk( ecran, player ,camera_offset)
+        
+        
         # afficher les vies
 
         heart_image = pygame.image.load(HEALTH)
@@ -182,7 +185,7 @@ def jeuprincipal():
 
 
         # si la map est 1 et que le joueur est a droite
-        if current_map_id == 0 and player.rect.x >= 2710 and player.rect.x <= 2770 :
+        if current_map_id == 0 and player.rect.x >= 2800 and player.rect.x <= 3300 :
             text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
             ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
             if game.pressed.get(pygame.K_RETURN):
@@ -196,7 +199,7 @@ def jeuprincipal():
                 back.setImage(1)
                 player.min_y = 750
         #entrer dans la pyramide
-        elif current_map_id == 1 and 3050 <= player.rect.x <= 3250 :
+        elif current_map_id == 1 and 3250 <= player.rect.x <= 3400 :
             text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
             ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
             if game.pressed.get(pygame.K_RETURN):
@@ -239,10 +242,7 @@ def jeuprincipal():
                     player.rect.y = 666
                     back.setImage(0)
                     player.min_y = 666
-                    player.velocity_x = 13
-                    player.velocity_y = 5
-                    player.vitesse_x = 0
-                    player.vitesse_y = 0
+
                     player.min_y = 666
                     cactus.rect.x = 1500
                     cactus.rect.y = 666

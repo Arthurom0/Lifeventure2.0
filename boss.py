@@ -11,10 +11,11 @@ class Boss(pygame.sprite.Sprite) :
         self.tick = pygame.time.Clock().tick()
         self.image = pygame.image.load(ENNEMI_CACTUS)
         self.rect = self.image.get_rect()
-        self.rect.x = 1000
+        self.rect.x = 2300
+        self.rect.y = 600
         self.current_image = 0
         self.animation = True 
-       
+        
 
         self.images = {
             'idle' : load_animation_images(ENNNEMI_BOSS, "Boss_Idle", (128*2, 128*2)),
@@ -36,6 +37,7 @@ class Boss(pygame.sprite.Sprite) :
     
     
     
-    def atk(self, ecran) :
+    def atk(self, ecran, player, camera_offset) :
 
-        self.actuel
+        self.actuel = "boss_atk"
+        pygame.draw.line(ecran, (220,20,60), (player.rect.x+camera_offset[0]+32, player.rect.y+camera_offset[1]+16), (2300, 600), 4)
