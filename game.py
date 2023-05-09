@@ -9,6 +9,7 @@ from Background import Background
 from Mechant import Mechant
 from Jeu import *
 from momie import Momie 
+from boss import Boss
 pygame.init()
 pygame.font.init() 
 def jeuprincipal():
@@ -44,7 +45,8 @@ def jeuprincipal():
     animation = {
         "marche" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeune", (32, 32)),
         "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
-        "momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32, 32))
+        "momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32, 32)),
+        "boss" : load_animation_images(ENNNEMI_BOSS, "Boss",( 128, 128))
     } 
 
     #charger le personnage
@@ -52,6 +54,7 @@ def jeuprincipal():
     cactus = Mechant(ecran)
     back = Background(ecran)
     momie = Momie(ecran)
+    boss = Boss(ecran)
     #charger le jeu
     game = Jeu()
     
@@ -62,7 +65,7 @@ def jeuprincipal():
     current_map_id = 0
 
     # liste qui va conteir les truc a afficher (fond, mobs, joueur, items...)
-    entities = [back, player, cactus, momie]
+    entities = [back, player, cactus, momie, boss]
 
 
     #fonction qui place les éléments au début :
@@ -180,6 +183,9 @@ def jeuprincipal():
                 print(vies)
 
 
+        if current_map_id == 2 :
+            boss.rect.x = 3000 
+            boss.rect.y = 750
                             
         print(vies)
             #animation des cœurs :

@@ -16,7 +16,9 @@ ENNEMI_CACTUS = DOSSIER_ENNEMI + "Cactus.png"
 HEALTH = BASE_DOSSIER + "coeur/Coeur.png"
 MENU = BASE_DOSSIER + "menu/menu.png"
 DEATH  = BASE_DOSSIER + "Ecran_de_mort.png"
-#ENNMI_MOMI = BASE_DOSSIER +
+ENNNEMI_BOSS = BASE_DOSSIER + 'anim_players/Boss'
+BOSS = ENNNEMI_BOSS + "Boss.gif"
+
 infoObject = pygame.display.Info()
 width, height = infoObject.current_w, infoObject.current_h
 
