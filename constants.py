@@ -20,7 +20,8 @@ MENU = BASE_DOSSIER + "menu/menu.png"
 DEATH  = BASE_DOSSIER + "Ecran_de_mort.png"
 ENNNEMI_BOSS = BASE_DOSSIER + 'anim_players/Boss'
 BOSS = ENNNEMI_BOSS + "/Boss_atk.png"
-
+CINEMATIQUE = BASE_DOSSIER + '/Cinematique'
+CINE = CINEMATIQUE + '/Cinematique_1.png'
 infoObject = pygame.display.Info()
 width, height = infoObject.current_w, infoObject.current_h
 DOSSIER_ANIM_BB = BASE_DOSSIER + "anim_players/bebe/"

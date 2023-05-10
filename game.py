@@ -12,7 +12,7 @@ from boss import Boss
 #from momie import Momie 
 pygame.init()
 pygame.font.init() 
-
+from threading import Timer
 
 def jeuprincipal():
     global vies
@@ -89,7 +89,7 @@ def jeuprincipal():
 
         #delt 
         # a temps
-        delta_t = clock.tick(60)
+        delta_t = clock.tick(30)
 
         # mettre à jour l'écran
         pygame.display.flip()
@@ -150,7 +150,7 @@ def jeuprincipal():
             player.attaqueD(current_map_id)
             #if a < (c or e or g) < a +32 and b - 16 < (d or e or g) < b +16 :
             for place in places  : 
-                if place[0] < place[2] < place[0] + 32 and place[1] - 16 < place[3] < places[1] +16 :
+                if place[0] < place[2] < place[0] + 32         and place[1] - 16 < place[3] < places[1] +16 :
                     print(place[0])
                     
                     
@@ -329,4 +329,4 @@ def jeuprincipal():
 
 
 
-jeuprincipal()
+#jeuprincipal()

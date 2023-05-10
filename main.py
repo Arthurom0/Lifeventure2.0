@@ -43,7 +43,7 @@ while this == True :
             text = font.render(f'{Position_souris}', True, (255, 125, 0))
             textRect = text.get_rect()
             textRect.center = (100, 100)
-            screen.blit(text, textRect)
+            #screen.blit(text, textRect)
 
             for event in pygame.event.get():#quit
                 if event.type == pygame.QUIT:
@@ -92,17 +92,35 @@ while this == True :
                         return True   
             pygame.display.flip()
 
+    def cinematique() :
+        window = pygame.display.set_mode((1920, 1080)) #Set the size of the screen using the #pygame.display.set_mode().
+        pygame.display.set_caption("cinematique")
+        clock = pygame.time.Clock()
+        cine = True
+        Cine = pygame.image.load(CINE)
+        images = ['Cinematique_1.png', 'Cinematique_2.png', 'Cinematique_3.png', 'Cinematique_4.png', 'Cinematique_5.png', 'Cinematique_6.png', 'Cinematique_7.png', 'Cinematique_8.png', 'Cinematique_9.png', 'Cinematique_10.png', 'Cinematique_11.png', 'Cinematique_12.png', 'Cinematique_13.png', 'Cinematique_14.png', 'Cinematique_15.png', 'Cinematique_16.png', 'Cinematique_17.png', 'Cinematique_18.png', 'Cinematique_19.png', 'Cinematique_20.png', 'Cinematique_21.png', 'Cinematique_22.png', 'Cinematique_23.png', 'Cinematique_24.png', 'Cinematique_25.png']
+        clock.tick(1)
+        for image in images:
+            window.blit(pygame.image.load('res/Cinematique/'+image), (0, 0))
+            pygame.display.update()
+            clock.tick(4) 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()     
+        return False
 
+            
 
 
 
     if main_menu() == True :#boucle qui permet de launch main menu puis import le jeu
-        
-        a = jeuprincipal()
+        a = cinematique()
+        if a == False : 
+            b = jeuprincipal()
  
 
-
-    if a == 0 : 
+    
+    if b == 0 : 
         death_screen()
         pygame.display.flip()
     while True :
