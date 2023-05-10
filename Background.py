@@ -133,9 +133,8 @@ class Background(pygame.sprite.Sprite):                         #Le fond qui est
 
 
 
-    def MOUV_MOMIE(self, momie) :
-        if momie.rect.x > 900: 
-            momie.move_left()
-        
-        if momie.rect.x < 1000 : 
+    def MOUV_MOMIE(self, momie, player) :
+        if momie.rect.x < player.rect.x : 
             momie.move_right()
+        if momie.rect.x > player.rect.x :
+            momie.move_left()

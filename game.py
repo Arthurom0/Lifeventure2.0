@@ -45,7 +45,7 @@ def jeuprincipal():
     animation = {
         "marche" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeune", (32, 32)),
         "mechant" : load_animation_images(DOSSIER_ENNEMI, "Cactus", (32, 32)),
-        "momie" : load_animation_images(DOSSIER_ENNEMI, "Momie", (32, 32)),
+        "momie" : load_animation_images(DOSSIER_ENNEMI, "momie_idle", (23, 32)),
         "boss" : load_animation_images(ENNNEMI_BOSS, "Boss",( 128, 128))
     } 
 
@@ -142,7 +142,11 @@ def jeuprincipal():
         if game.pressed.get(pygame.K_ESCAPE):
                 pygame.quit()
 
-
+        #mouvement de la momie
+        if momie.rect.x > player.rect.x : 
+            momie.move_left()
+        if momie.rect.x < player.rect.x : 
+            momie.move_right()
 
 
         #Montrer le personnage et mechant
@@ -151,7 +155,7 @@ def jeuprincipal():
 
         #fonction de porte
         #back.Portes( 1, game, player, cactus, momie, ecran, camera_offset, width_max)
-        back.MOUV_MOMIE(momie)
+       # back.MOUV_MOMIE(momie, player)
 
         
 
