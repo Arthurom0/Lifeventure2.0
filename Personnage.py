@@ -62,15 +62,15 @@ class Personnage(pygame.sprite.Sprite):
         # marge de 64 sur lequel le joueur ne peut pas aller a droite
         if self.rect.x > container[0] - 64 :
             self.rect.x = container[0] - 64 
-        #fonction qui est activée lorsque le personnage bouge vers la gauche 
+        
     def move_left(self, container):
         """
         container est une liste [x, y] qui contient la largeur et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
         self.actuel = "marche_gauche"
         self.rect.x -= self.velocity_x
-        if self.rect.x < 64:
-            self.rect.x = 64
+        if self.rect.x < 64 :
+            self.rect.x = 64 
     #fonction qui permet de sauter vers la droite
     def jumpD(self):
         self.actuel = "saut_droite"
