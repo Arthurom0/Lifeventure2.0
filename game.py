@@ -194,6 +194,8 @@ def jeuprincipal():
                 player.rect.y = 750
                 cactus.rect.x = 1110
                 cactus.rect.y = 750
+                momie.rect.x = 2000
+                momie.rect.y = 750
                 back.setImage(1)
                 player.min_y = 750
         #entrer dans la pyramide
@@ -214,15 +216,13 @@ def jeuprincipal():
         b = player.rect.y
         c = cactus.rect.x
         d = cactus.rect.y
-        #rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
-        #rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
+        e = momie.rect.x
+        f = momie.rect.y
         
         print(a, b, c, d)
         
-        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 :
-            if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d+32 > b >d-32 :
-
-
+        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
+            if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
                 vies -= 1 
                 if vies == 2:
                     heart_imaging(1300, 10 )
@@ -240,10 +240,6 @@ def jeuprincipal():
                     player.rect.y = 666
                     back.setImage(0)
                     player.min_y = 666
-                    player.velocity_x = 13
-                    player.velocity_y = 5
-
-                    player.min_y = 666
                     cactus.rect.x = 1500
                     cactus.rect.y = 666
                     vies == 1
@@ -256,9 +252,8 @@ def jeuprincipal():
             heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
 
 
-                # mettre à jour l'écran
-            #fermeture de la fenêtre
-        
+
+
             
     #fermeture de la fenêtre
     for event in pygame.event.get():
