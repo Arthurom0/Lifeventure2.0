@@ -64,7 +64,7 @@ while this == True :
             
             pygame.display.flip()
     
-    def death_screen(ww) :#ecran avec 2 optio apres mourir dans le jeu
+    def death_screen() :#ecran avec 2 optio apres mourir dans le jeu
         pygame.display.set_caption("DEATH_screen")
         #BG = pygame.display.set_mode(width, height)
         Death = pygame.image.load(DEATH)

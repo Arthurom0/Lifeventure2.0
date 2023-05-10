@@ -37,7 +37,7 @@ def jeuprincipal():
     DO_PLAY_SOUND = False
     if DO_PLAY_SOUND:
         pygame.mixer.music.load(MUSIQUE_FOND)
-        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play()
 
     #Temps
@@ -116,30 +116,47 @@ def jeuprincipal():
         for entity in entities:
             entity.update()
 
+
+         #data box to follow coonditions to take out hearts
+        a = player.rect.x
+        b = player.rect.y
+        c = cactus.rect.x
+        d = cactus.rect.y
+        e = momie.rect.x
+        f = momie.rect.y
+        g = boss.rect.x 
+        places = [ 
+            [a, b , c, d],
+            [a, b , e ,f],
+            [a, b , f, g]
+        ]
+
         # déplacement du personnage et mechant
-        player.idle()  
-        #momie.idle()
+        player.idle(current_map_id)  
+
 
         if player.vitesse_y != 0 and player.rect.x < player.velocity_x:
-            player.jumpD() or player.jumpG()
-        if player.vitesse_y > 0 or player.vitesse_y < 0 :
-            player.actuel =  "saut_droite" or "saut_gauche"
+            player.jumpD(current_map_id) or player.jumpG(current_map_id)
+
         if game.pressed.get(pygame.K_RIGHT):
-            player.move_right([back.image.get_width(), back.image.get_height()])
+            player.move_right([back.image.get_width(), back.image.get_height()],current_map_id)
         if game.pressed.get(pygame.K_LEFT):
-            player.move_left([back.image.get_width(), back.image.get_height()])
-        if game.pressed.get(pygame.K_UP) and player.actuel == "marche_droite":
-            player.jumpD()
-        if game.pressed.get(pygame.K_UP) and player.actuel == "idle":
-            player.jumpD()
-        if game.pressed.get(pygame.K_UP) and player.actuel == "marche_gauche":
-            player.jumpG()
-        if game.pressed.get(pygame.K_SPACE) and player.actuel == "marche_droite":
-            player.attaqueD()
-        if game.pressed.get(pygame.K_SPACE) and player.actuel == "marche_gauche":
-            player.attaqueG()
-        if game.pressed.get(pygame.K_SPACE) and player.actuel == "idle":
-            player.attaqueD()
+            player.move_left([back.image.get_width(), back.image.get_height()],current_map_id)
+
+        if game.pressed.get(pygame.K_UP) :
+            player.jumpD(current_map_id)
+
+        if game.pressed.get(pygame.K_SPACE):
+            player.attaqueD(current_map_id)
+            #if a < (c or e or g) < a +32 and b - 16 < (d or e or g) < b +16 :
+            for place in places  : 
+                if place[0] < place[2] < place[0] + 32 and place[1] - 16 < place[3] < places[1] +16 :
+                    print(place[0])
+                    
+                    
+                    
+                    
+
         if game.pressed.get(pygame.K_ESCAPE):
                 pygame.quit()
 
@@ -206,6 +223,13 @@ def jeuprincipal():
                 momie.rect.y = 750
                 back.setImage(1)
                 player.min_y = 750
+                entities = [back, player, cactus, momie]
+                DO_PLAY_SOUND = False
+                if DO_PLAY_SOUND:
+                    pygame.mixer.music.load(MUSIQUE_FOND1)
+                    pygame.mixer.music.set_volume(0.5)
+                    pygame.mixer.music.play()
+
         #entrer dans la pyramide
         elif current_map_id == 1 and 3250 <= player.rect.x <= 3400 :
             text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
@@ -218,22 +242,21 @@ def jeuprincipal():
                 player.rect.y = 750
                 back.setImage(2)
                 player.min_y = 750
-            
-        #data box to follow coonditions to take out hearts
-        a = player.rect.x
-        b = player.rect.y
-        c = cactus.rect.x
-        d = cactus.rect.y
-        e = momie.rect.x
-        f = momie.rect.y
-        
+                entities = [back, player, cactus, momie]
+                DO_PLAY_SOUND = False
+                if DO_PLAY_SOUND:
+                    pygame.mixer.music.load(MUSIQUE_FOND2)
+                    pygame.mixer.music.set_volume(0.5)
+                    pygame.mixer.music.play()
+
+       
         #print(a, b, c, d)
         #detecte la superposition
         if current_map_id == 2 :
             if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
                 if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
                     vies -= 1 
-                    
+   
                     if vies == 2:
                         heart_imaging(1300, 10 )
                         current_map_id = 2
@@ -250,18 +273,15 @@ def jeuprincipal():
                         player.rect.x = 0
                         player.rect.y = 750
                         back.setImage(2)
-                        player.min_y = 666
+                        player.min_y = 750
                         cactus.rect.x = 1500
                         cactus.rect.y = 750
                         momie.rect.y = 750
                         vies == 1
-
-        if current_map_id == 0 or current_map_id == 1 :       
+        else :
             if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
                 if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
                     vies -= 1 
-                    
-                    
                     if vies == 2:
                         heart_imaging(1300, 10 )
                         current_map_id = 0
@@ -291,6 +311,11 @@ def jeuprincipal():
             heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35)
         else :
             heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
+
+
+
+        
+        
 
         pygame.display.flip()
 

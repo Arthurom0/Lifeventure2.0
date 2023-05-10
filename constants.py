@@ -7,6 +7,8 @@ IMAGES_FOND = [
     BASE_DOSSIER + "decors/Paysage_4.png",
 ]
 MUSIQUE_FOND = BASE_DOSSIER + "musiques/Morceau_sans_titre_1.mp3"
+MUSIQUE_FOND1 = BASE_DOSSIER + "musiques/Musique_donjon.mp3"
+MUSIQUE_FOND2 = BASE_DOSSIER + "musiques/Morceau_sans_titre_1.mp3"
 DOSSIER_ANIM_JEUNE = BASE_DOSSIER + "anim_players/jeune/"
 ANIM_JEUNE = DOSSIER_ANIM_JEUNE + "Jeune.png"
 DOSSIER_ENNEMI = BASE_DOSSIER + "anim_players/cactus/"
