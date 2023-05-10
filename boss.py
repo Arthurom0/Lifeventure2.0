@@ -1,6 +1,7 @@
 from constants import *
 import pygame
 from utils import load_animation_images
+import time
 
 #classe qui s'occupe du boss qui doit s'afficher que dans la map 3
 
@@ -15,17 +16,23 @@ class Boss(pygame.sprite.Sprite) :
         self.rect.y = 600
         self.current_image = 0
         self.animation = True 
-        
+        self.start_frame = time.time()
+        self.noi = 16
+        self.frames_per_second = 5   
+        self.clock = pygame.time.Clock()
+        self.delta_T = self.clock.tick(3) 
 
         self.images = {
             'idle' : load_animation_images(ENNNEMI_BOSS, "Boss_Idle", (128*2, 128*2)),
-            'boss_atk' : load_animation_images(ENNNEMI_BOSS,"Boss_atk", (128*2, 128*2))
+            'boss_atk' : load_animation_images(ENNNEMI_BOSS,"Boss_atk", (128*2, 128*2)),
+            "boss_ATK" : load_animation_images(ENNNEMI_BOSS, "Boss_ATK", (128*2, 128*2))
         }
 
         self.actuel  = "idle"
     def display(self, camera_offset):
         self.current_image = self.current_image % len(self.images[self.actuel])
 
+        #self.current_image = int((time.time() - self.start_frame) * self.frames_per_second % self.noi)
         pixel_x = self.rect.x + camera_offset[0]
         pixel_y = self.rect.y + camera_offset[1]
 
@@ -39,5 +46,9 @@ class Boss(pygame.sprite.Sprite) :
     
     def atk(self, ecran, player, camera_offset) :
 
-        self.actuel = "boss_atk"
-        pygame.draw.line(ecran, (220,20,60), (player.rect.x+camera_offset[0]+32, player.rect.y+camera_offset[1]+16), (2300, 600), 4)
+        #self.actuel = "boss_atk"
+        self.actuel = "boss_ATK"
+        pygame.draw.line(ecran, (220,20,60), (player.rect.x+camera_offset[0]+32, player.rect.y+camera_offset[1]+16), (self.rect.x, self.rect.y), 4)
+
+    def idle(self):
+        self.actuel = "idle"

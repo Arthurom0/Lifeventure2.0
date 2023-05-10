@@ -8,11 +8,12 @@ class Personnage(pygame.sprite.Sprite):
     def __init__(self, ecran):
         super().__init__()
         self.ecran = ecran
-        self.tick = pygame.time.Clock().tick()
+        clock = pygame.time.Clock()
         self.health = 100
         self.max_health = 100
         self.attack = 10
-
+        #self.tick = pygame.time.Clock().tick(2)
+        self. tick  = clock.tick(0)
         self.velocity_x = 30
         self.velocity_y = 5
         self.vitesse_x = 0

@@ -82,17 +82,16 @@ def jeuprincipal():
         player.min_y = 900
         
     # tant que le jeu est en marche...
+# tant que le jeu est en marche...
+# tant que le jeu est en marche...
     main_window = True 
     while main_window == True :
-
 
         #delta temps
         delta_t = clock.tick(60)
 
         # mettre à jour l'écran
         pygame.display.flip()
-
-
 
 
         #fermeture de la fenêtre
@@ -107,7 +106,7 @@ def jeuprincipal():
             #    
             elif event.type == pygame.KEYUP:
                 game.pressed[event.key] = False
-        
+    
         #fonts :
         my_font = pygame.font.SysFont('Comic Sans MS', 30, True)
 
@@ -170,8 +169,10 @@ def jeuprincipal():
             entity.display(camera_offset)
             if current_map_id == 2 :
                 boss.display(camera_offset)
-                if boss.rect.x - 60 < player.rect.x < boss.rect.x + 400 :
+                if boss.rect.x - 60 + camera_offset[0] < player.rect.x < boss.rect.x+ camera_offset[0] + 400 :
                     boss.atk( ecran, player ,camera_offset)
+                else:
+                    boss.idle()
         
         
         # afficher les vies
@@ -192,7 +193,7 @@ def jeuprincipal():
                 camera_offset[0] = 0
                 camera_offset[1] = 0
                 current_map_id = 1
-                player.rect.x = 400
+                player.rect.x = 0
                 player.rect.y = 750
                 cactus.rect.x = 1110
                 cactus.rect.y = 750
@@ -206,7 +207,7 @@ def jeuprincipal():
                 camera_offset[0] = 0
                 camera_offset[1] = 0
                 current_map_id = 2
-                player.rect.x = 400
+                player.rect.x = 0
                 player.rect.y = 750
                 back.setImage(2)
                 player.min_y = 750
@@ -216,8 +217,8 @@ def jeuprincipal():
         b = player.rect.y
         c = cactus.rect.x
         d = cactus.rect.y
-        rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
-        rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
+        #rect1 = player.hitbox = (player.rect.x+camera_offset[0] - 10, player.rect.y+camera_offset[1], 64, 64)
+        #rect2 = cactus.hitbox = (cactus.rect.x+camera_offset[0] - 10, cactus.rect.y+camera_offset[1], 64, 64)
         
         print(a, b, c, d)
         
@@ -227,26 +228,29 @@ def jeuprincipal():
 
                 vies -= 1 
                 if vies == 2:
-                    heart_imaging(1300, 10 )                                    
+                    heart_imaging(1300, 10 )
                     current_map_id = 0
-                    player.rect.x = 400
+                    player.rect.x = 0
                     player.rect.y = 666
                     back.setImage(0)
                     player.min_y = 666
                     cactus.rect.x = 1500
                     cactus.rect.y = 666
-                    vies = 2
+                    vies == 2
                 elif vies == 1:
                     current_map_id = 0
-                    player.rect.x = 400
+                    player.rect.x = 0
                     player.rect.y = 666
                     back.setImage(0)
                     player.min_y = 666
-
+                    player.velocity_x = 13
+                    player.velocity_y = 5
+                    player.vitesse_x = 0
+                    player.vitesse_y = 0
                     player.min_y = 666
                     cactus.rect.x = 1500
                     cactus.rect.y = 666
-                    vies = 1
+                    vies == 1
         #animation des cœurs :
         if vies == 3 :
             heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
