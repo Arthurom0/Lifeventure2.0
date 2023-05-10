@@ -23,6 +23,7 @@ class Personnage(pygame.sprite.Sprite):
         #self.velocity_z = 4
         self.image = pygame.image.load(ANIM_JEUNE)
         self.rect = self.image.get_rect()
+        self.direction = 1
         self.on_ground = True
         self.rect.x = 800
         self.rect.y = 666       
@@ -46,8 +47,12 @@ class Personnage(pygame.sprite.Sprite):
 
         pixel_x = self.rect.x + camera_offset[0]
         pixel_y = self.rect.y + camera_offset[1]
+        if self.direction > 0:
+            image = self.images[self.actuel][int(self.current_image)]
+        else: 
+            image = pygame.transform.flip(self.images[self.actuel][int(self.current_image)],True,False)
 
-        self.ecran.blit(self.images[self.actuel][int(self.current_image)], (pixel_x, pixel_y))
+        self.ecran.blit(image, (pixel_x, pixel_y))
         self.current_image += 1
     #fonction qui est activée lorsque le personnage ne bouge pas  
     def idle(self):
@@ -57,18 +62,21 @@ class Personnage(pygame.sprite.Sprite):
         """
         container est une liste [x, y] qui contient la largeuyr et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
+        self.direction = 1
         self.actuel = "marche_droite"
         self.rect.x += self.velocity_x
         
         # marge de 64 sur lequel le joueur ne peut pas aller a droite
-        if self.rect.x > container[0] - 200 :
-            self.rect.x = container[0] - 200 
+        if self.rect.x > container[0] - 64 :
+            self.rect.x = container[0] - 64 
         #fonction qui est activée lorsque le personnage bouge vers la gauche 
     def move_left(self, container):
         """
         container est une liste [x, y] qui contient la largeuyr et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
-        self.actuel = "marche_gauche"
+        self.direction = -1
+        #self.actuel = "marche_gauche"
+        self.actuel = "marche_droite"
         self.rect.x -= self.velocity_x
 
         if self.rect.x < 64:
@@ -80,7 +88,8 @@ class Personnage(pygame.sprite.Sprite):
             self.vitesse_y = -10
     #fonction qui permet de faire sauter le personnage vers la gauche 
     def jumpG(self):
-        self.actuel = "saut_gauche"
+        self.actuel = "saut_droite"
+        #self.actuel = "saut_gauche"
         if self.vitesse_y == 0:
             self.vitesse_y = -10
     #fonction qui permet de faire une attaque vers la droite 
@@ -89,7 +98,8 @@ class Personnage(pygame.sprite.Sprite):
 
     #fonction qui permet de faire une attaque vers la gauche         
     def attaqueG(self):
-        self.actuel = "attaque_gauche"
+        self.actuel = "attaque_droite"
+       # self.actuel = "attaque_gauche"
         
        
         

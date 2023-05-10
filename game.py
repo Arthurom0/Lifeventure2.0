@@ -12,21 +12,26 @@ from boss import Boss
 #from momie import Momie 
 pygame.init()
 pygame.font.init() 
+
+
 def jeuprincipal():
     global vies
-    
-
-
-
+    jumping = True
+    Y_gravity = 1
+    JUMP_HEIGHT = 20
+    Y_velocity = JUMP_HEIGHT 
 
 
     #fenêtre du jeu
     pygame.display.set_caption("Lifenture")
     ecran = pygame.display.set_mode((width, height))
     my_font = pygame.font.SysFont('Comic Sans MS', 30, True)
+    x_fond = 0
+    y_fond = 0
     width_max = 1920
-   
-
+    height_max = 1080
+    #taille
+    taille = 2
 
     #Musique
     DO_PLAY_SOUND = False
@@ -83,7 +88,7 @@ def jeuprincipal():
     while main_window == True :
 
         #delta temps
-        delta_t = clock.tick(30)
+        delta_t = clock.tick(60)
 
         # mettre à jour l'écran
         pygame.display.flip()
@@ -147,14 +152,14 @@ def jeuprincipal():
         for entity in entities:
             entity.display(camera_offset)
 
-        
-
         if game.pressed.get(pygame.K_ESCAPE):
             pygame.quit()
 
-        
-        # on déplace la caméra sur le joueur
-       #camera_offset[0] = -(player.rect.x - width_max//2)
+       # print(player.rect.x)
+       # print(width)
+       # print(width_max)
+       # print(back.image.get_width())
+        #print(camera_offset)
         back_width = back.image.get_width()
 
         # on déplace la caméra sur le joueur
@@ -166,18 +171,12 @@ def jeuprincipal():
             camera_offset[0] = -(player.rect.x - width_max//2)
 
 
-
-
-
-        #Montrer le personnage et mechant
-        for entity in entities:
-            entity.display(camera_offset)
-            if current_map_id == 2 :
-                boss.display(camera_offset)
-                if boss.rect.x - 60 + camera_offset[0] < player.rect.x < boss.rect.x + 400 :
-                    boss.atk( ecran, player ,camera_offset)
-                else:
-                    boss.idle()
+        if current_map_id == 2 :
+            boss.display(camera_offset)
+            if boss.rect.x - 60 + camera_offset[0] < player.rect.x:
+                boss.atk(ecran, player ,camera_offset)
+            else:
+                boss.idle()
         
         
         # afficher les vies
@@ -187,11 +186,8 @@ def jeuprincipal():
             ecran.blit(heart_image, (x, y))
         
 
-
-
-
         # si la map est 1 et que le joueur est a droite
-        if current_map_id == 0 and player.rect.x >= 2800 and player.rect.x <= 2950 :
+        if current_map_id == 0 and player.rect.x >= 2800 and player.rect.x <= 3300 :
             text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
             ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
             if game.pressed.get(pygame.K_RETURN):
@@ -207,7 +203,7 @@ def jeuprincipal():
                 back.setImage(1)
                 player.min_y = 750
         #entrer dans la pyramide
-        elif current_map_id == 1 and 3250 <= player.rect.x <= 3300 :
+        elif current_map_id == 1 and 3250 <= player.rect.x <= 3400 :
             text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
             ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
             if game.pressed.get(pygame.K_RETURN):
@@ -220,16 +216,16 @@ def jeuprincipal():
                 player.min_y = 750
             
         #data box to follow coonditions to take out hearts
-        a = player.rect.x 
-        b = player.rect.y 
+        a = player.rect.x
+        b = player.rect.y
         c = cactus.rect.x
         d = cactus.rect.y
         e = momie.rect.x
         f = momie.rect.y
         
-        print(a, b, c, d)
+        #print(a, b, c, d)
         
-        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c +20 > a + 20 >c -20 and e - 20 <= a+  20 <= e + 20 or e + 20 >= a - 20 >= e or e + 20 > a > e-20 :
+        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
             if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
                 vies -= 1 
                 if vies == 2:
@@ -261,6 +257,7 @@ def jeuprincipal():
         else :
             heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35)
 
+        pygame.display.flip()
 
 
 
@@ -269,5 +266,7 @@ def jeuprincipal():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()     
+
+
 
 jeuprincipal()

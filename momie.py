@@ -42,7 +42,7 @@ class Momie(pygame.sprite.Sprite):
         pixel_y = self.rect.y + camera_offset[1]
 
         self.ecran.blit(self.images[self.actuel][int(self.current_image)], (pixel_x, pixel_y))
-        self.ecran.blit(self.image, (pixel_x, pixel_y))
+       # self.ecran.blit(self.image, (pixel_x, pixel_y))
         self.current_image += 1
 
     def move_right(self):

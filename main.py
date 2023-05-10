@@ -19,9 +19,6 @@ pygame.font.init()
 
 screen = pygame.display.set_mode((1920,1080))
 
-
-
-
 clock = pygame.time.Clock()
 
 this = True
@@ -88,7 +85,7 @@ while this == True :
                     if event.key == pygame.K_ESCAPE:
                         pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN: 
-                    print(Position_souris)
+                    #print(Position_souris)
                     if 772 < Position_souris[0] < 1175 and  645 < Position_souris[1] <  753:
                         return False
                     if 840 < Position_souris[0] < 1110 and  800 < Position_souris[1] <  916:
@@ -115,7 +112,7 @@ while this == True :
         if death_screen() == False :
             jeuprincipal()
 
-3
+
 
 
 
