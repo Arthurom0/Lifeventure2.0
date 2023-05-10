@@ -20,7 +20,7 @@ class Boss(pygame.sprite.Sprite) :
         self.noi = 16
         self.frames_per_second = 5   
         self.clock = pygame.time.Clock()
-        self.delta_T = self.clock.tick(3) 
+
 
         self.images = {
             'idle' : load_animation_images(ENNNEMI_BOSS, "Boss_Idle", (128*2, 128*2)),
@@ -43,9 +43,10 @@ class Boss(pygame.sprite.Sprite) :
     
     
     
-    def atk(self, ecran, player, camera_offset) :
+    def atk(self, ecran, player, camera_offset, vies) :
         self.actuel = "boss_atk"
         pygame.draw.line(ecran, (220,20,60), (player.rect.x+camera_offset[0]+32, player.rect.y+camera_offset[1]+16), (self.pixel_x + 60, self.pixel_y + 35), 4)
+        vies -= 1
 
     def idle(self):
         self.actuel = "idle"

@@ -87,7 +87,8 @@ def jeuprincipal():
     main_window = True 
     while main_window == True :
 
-        #delta temps
+        #delt 
+        # a temps
         delta_t = clock.tick(60)
 
         # mettre à jour l'écran
@@ -118,6 +119,7 @@ def jeuprincipal():
         # déplacement du personnage et mechant
         player.idle()  
         #momie.idle()
+
         if player.vitesse_y != 0 and player.rect.x < player.velocity_x:
             player.jumpD() or player.jumpG()
         if player.vitesse_y > 0 or player.vitesse_y < 0 :
@@ -174,7 +176,7 @@ def jeuprincipal():
         if current_map_id == 2 :
             boss.display(camera_offset)
             if boss.rect.x - 60 + camera_offset[0] < player.rect.x:
-                boss.atk(ecran, player ,camera_offset)
+                boss.atk(ecran, player ,camera_offset, vies)
             else:
                 boss.idle()
         
@@ -184,6 +186,8 @@ def jeuprincipal():
         heart_image = pygame.image.load(HEALTH)
         def heart_imaging(x, y) :
             ecran.blit(heart_image, (x, y))
+        
+
         
 
         # si la map est 1 et que le joueur est a droite
@@ -224,31 +228,62 @@ def jeuprincipal():
         f = momie.rect.y
         
         #print(a, b, c, d)
-        
-        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
-            if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
-                vies -= 1 
-                if vies == 2:
-                    heart_imaging(1300, 10 )
-                    current_map_id = 0
-                    player.rect.x = 0
-                    player.rect.y = 666
-                    back.setImage(0)
-                    player.min_y = 666
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 666
-                    momie.rect.y = 666
-                    vies == 2
-                elif vies == 1:
-                    current_map_id = 0
-                    player.rect.x = 0
-                    player.rect.y = 666
-                    back.setImage(0)
-                    player.min_y = 666
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 666
-                    momie.rect.y = 666
-                    vies == 1
+        #detecte la superposition
+        if current_map_id == 2 :
+            if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
+                if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
+                    vies -= 1 
+                    
+                    if vies == 2:
+                        heart_imaging(1300, 10 )
+                        current_map_id = 2
+                        player.rect.x = 0
+                        player.rect.y = 750
+                        back.setImage(2)
+                        player.min_y = 750
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 750
+                        momie.rect.y = 750
+                        vies == 2
+                    elif vies == 1:
+                        current_map_id = 2
+                        player.rect.x = 0
+                        player.rect.y = 750
+                        back.setImage(2)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 750
+                        momie.rect.y = 750
+                        vies == 1
+
+        if current_map_id == 0 or current_map_id == 1 :       
+            if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
+                if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
+                    vies -= 1 
+                    
+                    
+                    if vies == 2:
+                        heart_imaging(1300, 10 )
+                        current_map_id = 0
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        back.setImage(0)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        momie.rect.y = 666
+                        vies == 2
+                    elif vies == 1:
+                        current_map_id = 0
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        back.setImage(0)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        momie.rect.y = 666
+                        vies == 1
+
         #animation des cœurs :
         if vies == 3 :
             heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
