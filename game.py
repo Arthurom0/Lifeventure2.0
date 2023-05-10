@@ -81,9 +81,7 @@ def jeuprincipal():
         back.setImage(1)
         player.min_y = 900
         
-    # tant que le jeu est en marche...
-# tant que le jeu est en marche...
-# tant que le jeu est en marche...
+
     main_window = True 
     while main_window == True :
 
@@ -98,7 +96,6 @@ def jeuprincipal():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 main_window = False
-
 
             # defini si la touche est appuyée ou non (a faire avant de detecter les touches)
             elif event.type == pygame.KEYDOWN:
@@ -152,10 +149,6 @@ def jeuprincipal():
         #Montrer le personnage et mechant
         for entity in entities:
             entity.display(camera_offset)
-
-        #fonction de porte
-        #back.Portes( 1, game, player, cactus, momie, ecran, camera_offset, width_max)
-       # back.MOUV_MOMIE(momie, player)
 
         
 
@@ -249,8 +242,7 @@ def jeuprincipal():
                     player.min_y = 666
                     player.velocity_x = 13
                     player.velocity_y = 5
-                    player.vitesse_x = 0
-                    player.vitesse_y = 0
+
                     player.min_y = 666
                     cactus.rect.x = 1500
                     cactus.rect.y = 666
@@ -266,7 +258,7 @@ def jeuprincipal():
 
                 # mettre à jour l'écran
             #fermeture de la fenêtre
-   
+        
             
     #fermeture de la fenêtre
     for event in pygame.event.get():
