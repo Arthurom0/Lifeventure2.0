@@ -261,5 +261,3 @@ def jeuprincipal():
             pygame.quit()     
 
 
-
-jeuprincipal()

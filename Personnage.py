@@ -1,5 +1,4 @@
 from constants import *
-from game import *
 import pygame
 from utils import load_animation_images
 
@@ -32,13 +31,13 @@ class Personnage(pygame.sprite.Sprite):
         self.current_image = 0
         self.animation = True
         self.images = {
-            "marche_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeuneD", (23 *2, 32*2)), 
-            "idle" : load_animation_images(DOSSIER_ANIM_JEUNE, "JeuneIdle", (23 *2, 32 *2)),
-            'marche_gauche' : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeuneG", (23 *2, 32 *2)),
-            "saut_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "Saut_jeuneD", (32 *2, 32 *2)),
-            "attaque_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaqueD", (32 *2, 32 *2)),
-            "saut_gauche" : load_animation_images(DOSSIER_ANIM_JEUNE, "Saut_jeuneG", (32 *2, 32 *2)),
-            "attaque_gauche" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaqueG", (32 *2, 32 *2)),
+            "marche_droite" : load_animation_images(DOSSIER_ANIM_BB, "MarcheJeuneD", (23 *2, 32*2)), 
+            "idle" : load_animation_images(DOSSIER_ANIM_BB, "JeuneIdle", (23 *2, 32 *2)),
+            'marche_gauche' : load_animation_images(DOSSIER_ANIM_BB, "MarcheJeuneG", (23 *2, 32 *2)),
+            "saut_droite" : load_animation_images(DOSSIER_ANIM_BB, "Saut_jeuneD", (32 *2, 32 *2)),
+            "attaque_droite" : load_animation_images(DOSSIER_ANIM_BB, "Jeune_attaqueD", (32 *2, 32 *2)),
+            "saut_gauche" : load_animation_images(DOSSIER_ANIM_BB, "Saut_jeuneG", (32 *2, 32 *2)),
+            "attaque_gauche" : load_animation_images(DOSSIER_ANIM_BB, "Jeune_attaqueG", (32 *2, 32 *2)),
         } 
         self.actuel = "idle" 
     # Afficher les animations (frames)        
