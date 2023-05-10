@@ -31,13 +31,13 @@ class Personnage(pygame.sprite.Sprite):
         self.current_image = 0
         self.animation = True
         self.images = {
-            "marche_droite" : load_animation_images(DOSSIER_ANIM_BB, "MarcheJeuneD", (23 *2, 32*2)), 
-            "idle" : load_animation_images(DOSSIER_ANIM_BB, "JeuneIdle", (23 *2, 32 *2)),
-            'marche_gauche' : load_animation_images(DOSSIER_ANIM_BB, "MarcheJeuneG", (23 *2, 32 *2)),
-            "saut_droite" : load_animation_images(DOSSIER_ANIM_BB, "Saut_jeuneD", (32 *2, 32 *2)),
-            "attaque_droite" : load_animation_images(DOSSIER_ANIM_BB, "Jeune_attaqueD", (32 *2, 32 *2)),
-            "saut_gauche" : load_animation_images(DOSSIER_ANIM_BB, "Saut_jeuneG", (32 *2, 32 *2)),
-            "attaque_gauche" : load_animation_images(DOSSIER_ANIM_BB, "Jeune_attaqueG", (32 *2, 32 *2)),
+            "marche_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeuneD", (23 *2, 32*2)), 
+            "idle" : load_animation_images(DOSSIER_ANIM_JEUNE, "JeuneIdle", (23 *2, 32 *2)),
+            'marche_gauche' : load_animation_images(DOSSIER_ANIM_JEUNE, "MarcheJeuneG", (23 *2, 32 *2)),
+            "saut_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "Saut_jeuneD", (32 *2, 32 *2)),
+            "attaque_droite" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaqueD", (32 *2, 32 *2)),
+            "saut_gauche" : load_animation_images(DOSSIER_ANIM_JEUNE, "Saut_jeuneG", (32 *2, 32 *2)),
+            "attaque_gauche" : load_animation_images(DOSSIER_ANIM_JEUNE, "Jeune_attaqueG", (32 *2, 32 *2)),
         } 
         self.actuel = "idle" 
     # Afficher les animations (frames)        
@@ -59,18 +59,20 @@ class Personnage(pygame.sprite.Sprite):
         """
         self.actuel = "marche_droite"
         self.rect.x += self.velocity_x
-        # marge de 64 sur lequel le joueur ne peut pas aller a droite
-        if self.rect.x > container[0] - 64 :
-            self.rect.x = container[0] - 64 
         
+        # marge de 64 sur lequel le joueur ne peut pas aller a droite
+        if self.rect.x > container[0] - 200 :
+            self.rect.x = container[0] - 200 
+        #fonction qui est activée lorsque le personnage bouge vers la gauche 
     def move_left(self, container):
         """
-        container est une liste [x, y] qui contient la largeur et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
+        container est une liste [x, y] qui contient la largeuyr et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
         self.actuel = "marche_gauche"
         self.rect.x -= self.velocity_x
-        if self.rect.x < 64 :
-            self.rect.x = 64 
+
+        if self.rect.x < 64:
+            self.rect.x = 64
     #fonction qui permet de sauter vers la droite
     def jumpD(self):
         self.actuel = "saut_droite"
@@ -89,6 +91,10 @@ class Personnage(pygame.sprite.Sprite):
     def attaqueG(self):
         self.actuel = "attaque_gauche"
         
+       
+        
+        
+
     def update(self):
         self.actuel = "saut_droite" or "saut_gauche"
         self.rect.y += self.vitesse_y

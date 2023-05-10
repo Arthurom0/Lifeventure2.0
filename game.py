@@ -155,12 +155,13 @@ def jeuprincipal():
         
         # on déplace la caméra sur le joueur
        #camera_offset[0] = -(player.rect.x - width_max//2)
-        print(back.rect.x)
-        back.rect = back.image.get_rect() 
+        back_width = back.image.get_width()
+
         # on déplace la caméra sur le joueur
-        if back.rect.x == 0 and player.rect.x < width_max//2:
-            
+        if camera_offset[0] >= 0 and player.rect.x < width_max//2:
             camera_offset[0] = 0
+        elif camera_offset[0] <= -1760 and player.rect.x > back_width-width_max//2:
+            camera_offset[0] = -1760
         else:
             camera_offset[0] = -(player.rect.x - width_max//2)
 
@@ -269,4 +270,4 @@ def jeuprincipal():
         if event.type == pygame.QUIT:
             pygame.quit()     
 
-
+jeuprincipal()
