@@ -1,4 +1,5 @@
 from constants import *
+from game import *
 import pygame
 from utils import load_animation_images
 
@@ -65,7 +66,7 @@ class Personnage(pygame.sprite.Sprite):
         #fonction qui est activée lorsque le personnage bouge vers la gauche 
     def move_left(self, container):
         """
-        container est une liste [x, y] qui contient la largeuyr et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
+        container est une liste [x, y] qui contient la largeur et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
         self.actuel = "marche_gauche"
         self.rect.x -= self.velocity_x
@@ -89,10 +90,6 @@ class Personnage(pygame.sprite.Sprite):
     def attaqueG(self):
         self.actuel = "attaque_gauche"
         
-       
-        
-        
-
     def update(self):
         self.actuel = "saut_droite" or "saut_gauche"
         self.rect.y += self.vitesse_y
