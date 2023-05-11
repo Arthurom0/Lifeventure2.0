@@ -23,7 +23,7 @@ class Momie(pygame.sprite.Sprite):
         self.vitesse_x = 0
         self.vitesse_y = 0
 
-        self.velocity_x = 5  # vitesse de déplacement de la momie
+        self.velocity_x = 3  # vitesse de déplacement de la momie
         self.direction = 1  # direction de déplacement de la momie (1 pour droite, -1 pour gauche)
 
         self.images = {
@@ -45,7 +45,7 @@ class Momie(pygame.sprite.Sprite):
 
         self.ecran.blit(self.images[self.actuel][int(self.current_image)], (pixel_x, pixel_y))
        # self.ecran.blit(self.image, (pixel_x, pixel_y))
-        self.current_image += 1
+        self.current_image += 0.3
 
     def move_right(self):
         """

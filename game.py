@@ -201,10 +201,10 @@ def jeuprincipal():
             #print(time_end - time_start)
             boss.display(camera_offset)
             boss.charge()
-        if boss.rect.x - 60 + camera_offset[0] < player.rect.x and time_end - time_start > 10:
+        if boss.rect.x - 60 + camera_offset[0] < player.rect.x and time_end - time_start > 28:
             boss.atk(ecran, player ,camera_offset, vies)
             time_end = time.time()
-            if time_end - time_start > 12:
+            if time_end - time_start > 30:
                 vies -= 1
         
         # afficher les vies
