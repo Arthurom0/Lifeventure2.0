@@ -6,6 +6,7 @@ from utils import load_animation_images
 class Momie(pygame.sprite.Sprite):
     def __init__(self, ecran):
         super().__init__()
+        self.alive = True
         self.ecran = ecran 
         self.tick = pygame.time.Clock().tick()
         self.image = pygame.image.load(MOMIE)  # liste des images de la momie
@@ -32,6 +33,7 @@ class Momie(pygame.sprite.Sprite):
         }
 
         self.actuel = "momie_idle"
+        
     def idle(self):
         self.actuel = "momie_idle"
         
@@ -43,7 +45,7 @@ class Momie(pygame.sprite.Sprite):
 
         self.ecran.blit(self.images[self.actuel][int(self.current_image)], (pixel_x, pixel_y))
        # self.ecran.blit(self.image, (pixel_x, pixel_y))
-        self.current_image += 0.2
+        self.current_image += 1
 
     def move_right(self):
         """

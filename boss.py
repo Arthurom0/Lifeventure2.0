@@ -3,7 +3,6 @@ import pygame
 from utils import load_animation_images
 import time
 
-
 #classe qui s'occupe du boss qui doit s'afficher que dans la map 3
 
 class Boss(pygame.sprite.Sprite) :
@@ -21,12 +20,12 @@ class Boss(pygame.sprite.Sprite) :
         self.noi = 16
         self.frames_per_second = 5   
         self.clock = pygame.time.Clock()
-
+        self.vie = 100
 
         self.images = {
             'idle' : load_animation_images(ENNNEMI_BOSS, "Boss_Idle", (128*2, 128*2)),
-            'boss_charge' : load_animation_images(ENNNEMI_BOSS,"Boss_atk", (128*2, 128*2)),
-            'bosse_atk' : load_animation_images(ENNNEMI_BOSS, 'Boss_ATK', (128*2, 128*2))
+            'boss_atk' : load_animation_images(ENNNEMI_BOSS,"Boss_atk", (128*2, 128*2)),
+            'boss_cha' : load_animation_images(ENNNEMI_BOSS,"Boss_cha", (128*2, 128*2))
         }
 
         self.actuel  = "idle"
@@ -44,15 +43,13 @@ class Boss(pygame.sprite.Sprite) :
         pass
     
     
-    
-    def charging(self, ecran, player, camera_offset, vies) :
-        self.actuel = "boss_charge"
-        pygame.draw.line(ecran, (220,20,60), (player.rect.x+camera_offset[0]+32, player.rect.y+camera_offset[1]+16), (self.pixel_x + 60, self.pixel_y + 35), 4)
+    def charge(self):
+        self.actuel = "boss_cha"
 
     def atk(self, ecran, player, camera_offset, vies) :
         self.actuel = "boss_atk"
+        pygame.draw.line(ecran, (220,20,60), (player.rect.x+camera_offset[0]+32, player.rect.y+camera_offset[1]+16), (self.pixel_x + 60, self.pixel_y + 35), 4)
         vies -= 1
-
 
     def idle(self):
         self.actuel = "idle"

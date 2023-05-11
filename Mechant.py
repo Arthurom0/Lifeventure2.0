@@ -30,7 +30,7 @@ class Mechant(pygame.sprite.Sprite):
 
         self.ecran.blit(self.images[self.actuel][int(self.current_image)], (pixel_x, pixel_y))
         self.current_image += 1
-    
+
     def update(self):
         pass
 

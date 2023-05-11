@@ -46,7 +46,7 @@ class Personnage(pygame.sprite.Sprite):
             "Vieux_saut" : load_animation_images(DOSSIER_ANIM_VIEUX, "Saut_Vieux", (32* 2, 32*2)),
             'Vieux_idle'  : load_animation_images(DOSSIER_ANIM_VIEUX, "VieuxIdle", (32* 2, 32*2)),
             "marche_Bebe" : load_animation_images(DOSSIER_ANIM_BB, "bebe_marche_D_", (32 *2, 32*2)),
-            "bebe_saut" : load_animation_images(DOSSIER_ANIM_BB, "bebesaut_", (32* 2, 32*2)),
+            "bebe_saut" : load_animation_images(DOSSIER_ANIM_BB, "bebesaut", (32* 2, 32*2)),
             "bebe_idle" : load_animation_images(DOSSIER_ANIM_BB, "bebe_idle_", (32* 2, 32*2))
         } 
 
@@ -78,7 +78,7 @@ class Personnage(pygame.sprite.Sprite):
     #fonction qui est activée lorsque le personnage bouge vers la droite
     def move_right(self, container, N ):
         """
-        container est une liste [x, y] qui contient la largeuyr et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
+        container est une liste [x, y] qui contient la largeur et la hauteur de la map dans laquelle est le joueur (pour pas qu'il sorte)
         """
         self.direction = 1
         
@@ -146,33 +146,30 @@ class Personnage(pygame.sprite.Sprite):
     def attaqueD(self, current_map_id):
         N = current_map_id
         if N == 0:
-            self.actuel = "bebe_atk"
+            self.actuel = "attaque_droite"
         elif N == 1 :
             self.actuel = "attaque_droite"
         elif N == 2:
             self.actuel = "Vieux_attaque"
-         
+                
 
     #fonction qui permet de faire une attaque vers la gauche         
     def attaqueG(self,current_map_id):
         N = current_map_id
         if N == 0:
-            self.actuel = "bebe_atk"
+            self.actuel = "attaque_droite"
         elif N == 1 :
             self.actuel = "attaque_droite"
         elif N == 2:
             self.actuel = "Vieux_attaque"
+                
+       # self.actuel = "attaque_gauche"
+        
+       
         
         
-
-    
-
-
-        
-        
-
     def update(self):
-        self.actuel = "saut_droite" or "saut_gauche" 
+        self.actuel = "saut_droite" or "saut_gauche"
         self.rect.y += self.vitesse_y
         self.vitesse_y += 0.7
         
