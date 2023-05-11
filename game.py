@@ -204,7 +204,7 @@ def jeuprincipal():
         if boss.rect.x - 60 + camera_offset[0] < player.rect.x and time_end - time_start > 35:
             boss.atk(ecran, player ,camera_offset, vies)
             time_end = time.time()
-            if time_end - time_start > 42:
+            if time_end - time_start > 50:
                 vies -= 1
         
         # afficher les vies

@@ -63,7 +63,7 @@ class Personnage(pygame.sprite.Sprite):
             image = pygame.transform.flip(self.images[self.actuel][int(self.current_image)],True,False)
 
         self.ecran.blit(image, (pixel_x, pixel_y))
-        self.current_image += 0.1
+        self.current_image += 0.5
     #fonction qui est activée lorsque le personnage ne bouge pas  
     def idle(self, N):
         if N == 0:
