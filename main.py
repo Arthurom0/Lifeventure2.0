@@ -44,6 +44,12 @@ while this == True :
             screen.blit(Back, (0,0))
             Position_souris = pygame.mouse.get_pos()
             delta_t = clock.tick(60)
+            font = pygame.font.Font('freesansbold.ttf', 32)
+
+            text = font.render(f'{Position_souris}', True, (255, 125, 0))
+            textRect = text.get_rect()
+            textRect.center = (100, 100)
+            screen.blit(text, textRect)
 
             for event in pygame.event.get():#quit
                 if event.type == pygame.QUIT:

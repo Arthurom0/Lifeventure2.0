@@ -14,7 +14,7 @@ class Personnage(pygame.sprite.Sprite):
         self.attack = 10
         #self.tick = pygame.time.Clock().tick(2)
         self. tick  = clock.tick(0)
-        self.velocity_x = 10
+        self.velocity_x = 13
         self.velocity_y = 5
         self.vitesse_x = 0
         self.vitesse_y = 0

@@ -9,13 +9,13 @@ from Mechant import Mechant
 from Jeu import *
 from momie import Momie
 from boss import Boss
-import time
 #from momie import Momie 
 pygame.init()
 pygame.font.init() 
 
 
 def jeuprincipal():
+
     global vies
     jumping = True
     Y_gravity = 1
@@ -34,6 +34,10 @@ def jeuprincipal():
     #taille
     taille = 2
 
+    #Musique
+    
+
+
     #Temps
     clock = pygame.time.Clock()
 
@@ -49,7 +53,7 @@ def jeuprincipal():
     player = Personnage(ecran)
     cactus = Mechant(ecran)
     back = Background(ecran)
-    momie = Momie(ecran)
+    momie = Momie(ecran )
     boss = Boss(ecran)
     #charger le jeu
     game = Jeu()
@@ -61,11 +65,10 @@ def jeuprincipal():
     current_map_id = 0
 
     # liste qui va conteir les truc a afficher (fond, mobs, joueur, items...)
-    entities = [back, cactus, momie, player]
+    entities = [back, player, cactus, momie]
 
     # placement de la caméra qu'on peut déplacer indépendamenr du joueur
     camera_offset = [0, 0]
-
 
     #Change la map/ place la map
     def set_nd_map():
@@ -77,27 +80,25 @@ def jeuprincipal():
         player.rect.y = 900
         back.setImage(1)
         player.min_y = 900
-    
-    time_start = 0
-    time_end = 0
+        
     music_play = True
-    main_window = True 
 
+    main_window = True 
     while main_window == True :
 
         if music_play:     
             if current_map_id == 0:
                 pygame.mixer.music.load(MUSIQUE_FOND)
                 pygame.mixer.music.set_volume(1)
-                pygame.mixer.music.play(-1)
+                pygame.mixer.music.play()
             elif current_map_id == 1:
                 pygame.mixer.music.load(MUSIQUE_FOND2)
                 pygame.mixer.music.set_volume(1)
-                pygame.mixer.music.play(-1)
+                pygame.mixer.music.play()
             elif current_map_id == 2:
                 pygame.mixer.music.load(MUSIQUE_FOND3)
                 pygame.mixer.music.set_volume(1)
-                pygame.mixer.music.play(-1)
+                pygame.mixer.music.play()
             music_play = False
         #delt 
         # a temps
@@ -128,44 +129,33 @@ def jeuprincipal():
         for entity in entities:
             entity.update()
 
-        attaque = False
         # déplacement du personnage et mechant
         player.idle(current_map_id)  
         #momie.idle()
-        
+
         if player.vitesse_y != 0 and player.rect.x < player.velocity_x:
-            player.jumpD(current_map_id)
-        #if player.vitesse_y > 0 or player.vitesse_y < 0 :
-        #    player.actuel =  "saut_droite" or "saut_gauche"
+            player.jumpD(current_map_id) or player.jumpG()
+       # if player.vitesse_y > 0 or player.vitesse_y < 0 :
+         #   player.actuel =  "saut_droite" or "saut_gauche"
         if game.pressed.get(pygame.K_RIGHT):
             player.move_right([back.image.get_width(), back.image.get_height()],current_map_id)
         if game.pressed.get(pygame.K_LEFT):
             player.move_left([back.image.get_width(), back.image.get_height()],current_map_id)
-        ##if game.pressed.get(pygame.K_UP) and player.actuel == "marche_droite":
-         #   player.jumpD(current_map_id)
-        if game.pressed.get(pygame.K_UP) :
+       # if game.pressed.get(pygame.K_UP) and player.actuel == "marche_droite":
+       #     player.jumpD(current_map_id)
+        if game.pressed.get(pygame.K_UP):
             player.jumpD(current_map_id)
-        #if game.pressed.get(pygame.K_UP) and player.actuel == "marche_gauche":
+        #if game.pressed.get(pygame.K_UP):
         #    player.jumpG(current_map_id)
-        if current_map_id != 0:
-            if game.pressed.get(pygame.K_SPACE):
-                player.attaqueD(current_map_id)
-                attaque = True
-                if pygame.Rect.colliderect(player.rect, cactus.rect):
-                    cactus.rect.x, cactus.rect.y = 6000,6000
-                if pygame.Rect.colliderect(player.rect, momie.rect):
-                    momie.rect.x, momie.rect.y = 6000,6000
-                if pygame.Rect.colliderect(player.rect, boss.rect):
-                    #print('c')
-                    boss.vie -= 1
-                    #print(boss.vie)
-        #if game.pressed.get(pygame.K_SPACE) and player.actuel == "marche_gauche":
-   #         player.attaqueG(current_map_id)
-    #    if game.pressed.get(pygame.K_SPACE) and player.actuel == "idle":
-     #       player.attaqueD(current_map_id)
-     
+        if game.pressed.get(pygame.K_SPACE):
+            player.attaqueD(current_map_id)
+        #if game.pressed.get(pygame.K_SPACE):
+        #    player.attaqueG(current_map_id)
+        #if game.pressed.get(pygame.K_SPACE):
+        #    player.attaqueD(current_map_id)
         if game.pressed.get(pygame.K_ESCAPE):
                 pygame.quit()
+
         #mouvement de la momie
         if momie.rect.x > player.rect.x : 
             momie.move_left()
@@ -197,15 +187,12 @@ def jeuprincipal():
 
 
         if current_map_id == 2 :
-            time_end = time.time()
-            #print(time_end - time_start)
             boss.display(camera_offset)
-            boss.charge()
-        if boss.rect.x - 60 + camera_offset[0] < player.rect.x and time_end - time_start > 35:
-            boss.atk(ecran, player ,camera_offset, vies)
-            time_end = time.time()
-            if time_end - time_start > 42:
-                vies -= 1
+            if boss.rect.x - 60 + camera_offset[0] < player.rect.x:
+                boss.atk(ecran, player ,camera_offset, vies)
+            else:
+                boss.idle()
+        
         
         # afficher les vies
 
@@ -233,13 +220,11 @@ def jeuprincipal():
                 momie.rect.y = 750
                 back.setImage(1)
                 player.min_y = 750
-
         #entrer dans la pyramide
         elif current_map_id == 1 and 3250 <= player.rect.x <= 3400 :
             text_surface = my_font.render(f"Appuyez sur enter pour enter", False, (0, 0, 0))
             ecran.blit(text_surface, (player.rect.x + camera_offset[0] - 100, 600))
             if game.pressed.get(pygame.K_RETURN):
-                time_start = time.time()
                 music_play = True
                 camera_offset[0] = 0
                 camera_offset[1] = 0
@@ -248,76 +233,66 @@ def jeuprincipal():
                 player.rect.y = 750
                 back.setImage(2)
                 player.min_y = 750
-
+            
         #data box to follow coonditions to take out hearts
-       # a = player.rect.x
-       # b = player.rect.y
-       # c = cactus.rect.x
-      #  d = cactus.rect.y
-       # e = momie.rect.x
-       # f = momie.rect.y
+        a = player.rect.x
+        b = player.rect.y
+        c = cactus.rect.x
+        d = cactus.rect.y
+        e = momie.rect.x
+        f = momie.rect.y
         
         #print(a, b, c, d)
         #detecte la superposition
-
-        if current_map_id == 2 :
-          #  if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
-               # if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
-            if (pygame.Rect.colliderect(player.rect,cactus.rect) or pygame.Rect.colliderect(player.rect,momie.rect)) and not attaque:
+        if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
+            if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
                 vies -= 1 
+                if current_map_id == 2 :
+                    if vies == 2:
+                        heart_imaging(1300, 10 )
+                        current_map_id = 2
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        back.setImage(2)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        momie.rect.y = 666
+                        vies == 2
+                    elif vies == 1:
+                        current_map_id = 2
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        back.setImage(2)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        momie.rect.y = 666
+                        vies == 1
 
-                if vies == 2:
-                    time_start = time.time()
-                    heart_imaging(1300, 10 )
-                    current_map_id = 2
-                    player.rect.x = 0
-                    player.rect.y = 750
-                    back.setImage(2)
-                    player.min_y = 750
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 750
-                    momie.rect.y = 750
-                    vies == 2
-                elif vies == 1:
-                    time_start = time.time()
-                    current_map_id = 2
-                    player.rect.x = 0
-                    player.rect.y = 750
-                    back.setImage(2)
-                    player.min_y = 750
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 750
-                    momie.rect.y = 750
-                    vies == 1
-        else :
-            #if c - 20 <= a + 20 <= c + 20 or c + 20 >= a - 20 >= c or c+20 > a >c-20 and e - 20 <= a + 20 <= e + 20 or e + 20 >= a - 20 >= e or e+20 > a >e-20:
-            #    if d - 32 <= b + 32 <= d + 32 or d + 32 >= b - 32 >= d or d + 32 > b > d - 32 and f - 32 <= b + 32 <= f + 32 or f + 32 >= b - 32 >= f or f + 32 > b > f - 32 :
-            if (pygame.Rect.colliderect(player.rect,cactus.rect) or pygame.Rect.colliderect(player.rect,momie.rect)) and not attaque:
-                vies -= 1 
-                if vies == 2:
-                    heart_imaging(1300, 10 )
-                    current_map_id = 0
-                    player.rect.x = 0
-                    player.rect.y = 666
-                    back.setImage(0)
-                    player.min_y = 666
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 666
-                    momie.rect.y = 666
-                    vies == 2
-                elif vies == 1:
-                    current_map_id = 0
-                    player.rect.x = 0
-                    player.rect.y = 666
-                    back.setImage(0)
-                    player.min_y = 666
-                    cactus.rect.x = 1500
-                    cactus.rect.y = 666
-                    momie.rect.y = 666
-                    vies == 1
-        if boss.vie <= 0:
-            return 'fin'
-            
+                else :
+                    if vies == 2:
+                        heart_imaging(1300, 10 )
+                        current_map_id = 0
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        back.setImage(2)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        momie.rect.y = 666
+                        vies == 2
+                    elif vies == 1:
+                        current_map_id = 0
+                        player.rect.x = 0
+                        player.rect.y = 666
+                        back.setImage(2)
+                        player.min_y = 666
+                        cactus.rect.x = 1500
+                        cactus.rect.y = 666
+                        momie.rect.y = 666
+                        vies == 1
+
         #animation des cœurs :
         if vies == 3 :
             heart_imaging(player.rect.x + camera_offset[0]-15, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+3, player.rect.y + camera_offset[1]-35), heart_imaging(player.rect.x + camera_offset[0]+20, player.rect.y + camera_offset[1]-35)
@@ -330,7 +305,7 @@ def jeuprincipal():
 
 
 
-            
+             
     #fermeture de la fenêtre
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -338,4 +313,4 @@ def jeuprincipal():
 
 
 
-#jeuprincipal()
+jeuprincipal()
