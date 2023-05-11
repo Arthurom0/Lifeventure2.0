@@ -201,7 +201,7 @@ def jeuprincipal():
             #print(time_end - time_start)
             boss.display(camera_offset)
             boss.charge()
-        if boss.rect.x - 60 + camera_offset[0] < player.rect.x and time_end - time_start > 28:
+        if boss.rect.x - 60 + camera_offset[0] < player.rect.x and time_end - time_start > 20:
             boss.atk(ecran, player ,camera_offset, vies)
             time_end = time.time()
             if time_end - time_start > 30:
@@ -233,6 +233,7 @@ def jeuprincipal():
                 momie.rect.y = 750
                 back.setImage(1)
                 player.min_y = 750
+                entities = [back, cactus, momie, player]
 
         #entrer dans la pyramide
         elif current_map_id == 1 and 3250 <= player.rect.x <= 3400 :
@@ -246,6 +247,10 @@ def jeuprincipal():
                 current_map_id = 2
                 player.rect.x = 0
                 player.rect.y = 750
+                cactus.rect.x = 1110
+                cactus.rect.y = 750
+                momie.rect.x = 2000
+                momie.rect.y = 750
                 back.setImage(2)
                 player.min_y = 750
 
