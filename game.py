@@ -80,7 +80,7 @@ def jeuprincipal():
     
     time_start = 0
     time_end = 0
-    music_play = True
+    music_play = False
     main_window = True 
 
     while main_window == True :
